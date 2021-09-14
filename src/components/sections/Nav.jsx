@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import NavMobile from './NavMobile';
 import NavMenu from '../menus/NavMenu';
-import Header from './Header';
 
-function Nav() {
+const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
@@ -74,10 +73,8 @@ function Nav() {
         <NavMobile {...{ isOpen }} />
       </nav>
 
-      <Header />
-
     </div>
   );
-}
+};
 
 export default Nav;
