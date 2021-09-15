@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const Container = ({ children }) => (
-  <div className="md:container md:mx-auto font-sans">
+  <div className="md:mx-16">
     {children}
   </div>
 );
