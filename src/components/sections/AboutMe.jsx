@@ -16,15 +16,7 @@ const AboutMe = () => (
         I’m working as a Programmer.
       </H1>
       <Description maxWidth="screen-md">
-        I am a developer that will transform your ideas into reality.
-        <br />
-        Proficient in
-        <strong> backend </strong>
-        frameworks such as Code Igniter and Laravel.
-        <br />
-        Familiar with modern
-        <strong> frontend </strong>
-        frameworks suchs React, Vue, Blade, and Angular.
+        A fullstack developer that will transform your ideas into reality.
       </Description>
       <StaticImage
         className="max-w-md mx-auto mt-6"
