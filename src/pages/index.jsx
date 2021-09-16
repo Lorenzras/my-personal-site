@@ -16,6 +16,7 @@ const IndexPage = () => (
       </Helmet>
 
       <AboutMe />
+
       <MyServices />
 
     </Container>

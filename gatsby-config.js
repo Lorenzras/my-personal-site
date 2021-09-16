@@ -1,4 +1,5 @@
 module.exports = {
+
   siteMetadata: {
     siteUrl: 'https://www.lenzlab.com',
     title: 'My Personal Site',
@@ -27,17 +28,9 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
-        path: './src/images/',
+        path: `${__dirname}/src/images/`,
       },
       __key: 'images',
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'photos',
-        path: './src/images/',
-      },
-      __key: 'photos',
     },
   ],
 };

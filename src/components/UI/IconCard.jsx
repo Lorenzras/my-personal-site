@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import { StaticImage } from 'gatsby-plugin-image';
-import { graphql } from 'gatsby';
 
 const IconCard = ({ imageFile, title, description }) => (
   <div>
