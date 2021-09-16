@@ -37,7 +37,7 @@ const MyServices = () => (
           />
         </div>
         <SkillDescription
-          title="Software Development"
+          title="Software"
           description="VB.net, C#, C++, also legacy COBOL, Pascal"
         />
       </SkillsCard>
@@ -50,8 +50,8 @@ const MyServices = () => (
           />
         </div>
         <SkillDescription
-          title="Backend development"
-          description="PHP (Laravel, CI, Wordpress), Python, C++, Node, Deno"
+          title="Backend"
+          description="PHP (Laravel, CI, Wordpress), Python, C++, Node, Deno, Java"
         />
       </SkillsCard>
       <SkillsCard>
@@ -63,7 +63,7 @@ const MyServices = () => (
           />
         </div>
         <SkillDescription
-          title="Frontend development"
+          title="Frontend"
           description="Javascript (React and Vue). CSS (Bulma, Tailwind and Bootstrap)"
         />
       </SkillsCard>
@@ -77,7 +77,7 @@ const MyServices = () => (
         </div>
         <SkillDescription
           title="RPA"
-          description="VBA, UiPath, Microsoft Powerautomate, Python"
+          description="VBA, UiPath, Microsoft Powerautomate, Python, Pascal, Java"
         />
       </SkillsCard>
       <SkillsCard>
