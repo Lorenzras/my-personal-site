@@ -10,7 +10,7 @@ const NavMenu = ({ menuType, onClose }) => links().map(
     >
       <Link
         activeClass="active"
-        className="hover:bg-gray-600 hover:text-white hover:shadow-lg font-bold py-2 px-4 rounded-lg cursor-pointer transition ease-in duration-200"
+        className="hover:bg-yellow-600 hover:text-white hover:shadow-lg font-bold py-2 px-4 rounded-lg cursor-pointer transition ease-in duration-200"
         to={url}
         spy
         smooth
