@@ -21,7 +21,7 @@ const ContactMe = () => (
       <Col>
         <TitleMini>CONTACT ME</TitleMini>
         <H2>
-          Are you ready to work together?
+          I Am Here To Help
         </H2>
         <Description maxWidth="screen-md">
           I’m always interested in hearing about new projects and opportunities.

@@ -17,13 +17,9 @@ const IndexPage = () => (
         <title>Lorenz Ras - About me</title>
         <link rel="canonical" href="https://www.lenzlab.com" />
       </Helmet>
-
       <AboutMe />
-
       <MyServices />
-
       <ContactMe />
-
     </Container>
     <Footer />
   </div>
