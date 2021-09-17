@@ -9,7 +9,7 @@ import MyServices from '../components/sections/MyServices';
 import Nav from '../components/sections/Nav';
 
 const IndexPage = () => (
-  <>
+  <div className="bg-gradient-to-t from-yellow-100 to-white">
     <Nav />
     <Container className="application">
       <Helmet>
@@ -26,7 +26,7 @@ const IndexPage = () => (
 
     </Container>
     <Footer />
-  </>
+  </div>
 );
 
 export default IndexPage;
