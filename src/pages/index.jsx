@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import Container from '../components/containers/Container';
 import AboutMe from '../components/sections/AboutMe';
+import ContactMe from '../components/sections/ContactMe';
 import MyServices from '../components/sections/MyServices';
 import Nav from '../components/sections/Nav';
 
@@ -18,6 +19,8 @@ const IndexPage = () => (
       <AboutMe />
 
       <MyServices />
+
+      <ContactMe />
 
     </Container>
   </>
