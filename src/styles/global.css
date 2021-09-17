@@ -1,4 +1,10 @@
 /* ./src/styles/global.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.st1 {
+  opacity: 0.6;
+  fill: #d97706;
+  enable-background: new;
+}

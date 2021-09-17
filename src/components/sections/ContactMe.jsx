@@ -8,7 +8,7 @@ import B from '../UI/B';
 
 const ContactDetails = () => (
 
-  <div className="grid grid-cols-1 md:grid-cols-3 mt-8 text-center">
+  <div className="grid grid-cols-1 md:grid-cols-3 mt-8 text-center z-50">
     <div className="font-bold text-3xl"><a className="font-bold no-underline hover:underline" href="tel:+817014529707">(+81) 70-1452-9707</a></div>
     <div className="place-self-center"><a className="font-bold no-underline hover:underline" href="mailto:lenzras@gmail.com">lenzras@gmail.com</a></div>
     <div className="place-self-center">Japan, Toyohashi, Aichi-ken</div>
@@ -16,7 +16,7 @@ const ContactDetails = () => (
 );
 
 const ContactMe = () => (
-  <Element name="contactMe" className="element">
+  <Element name="contactMe">
     <InnerContainer id="contactMe">
       <Col>
         <TitleMini>CONTACT ME</TitleMini>
