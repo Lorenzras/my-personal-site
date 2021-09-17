@@ -15,7 +15,7 @@ const NavMobile = ({ isOpen }) => (
   >
     <div className="md:hidden" id="mobile-menu">
       <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <NavMenu />
+        <NavMenu menuType="mobile" />
       </div>
     </div>
   </Transition>

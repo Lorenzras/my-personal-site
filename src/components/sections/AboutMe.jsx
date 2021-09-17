@@ -8,14 +8,14 @@ import InnerContainer from '../containers/InnerContainer';
 import B from '../UI/B';
 
 const AboutMe = () => (
-  <InnerContainer>
+  <InnerContainer id="aboutMe">
     <Col>
       <TitleMini>ABOUT ME</TitleMini>
       <H1>
         Hello, I&apos;m
         <TextTyped> Lorenz Ras </TextTyped>
         <br />
-        I’m working as a Programmer.
+        I’m working as a Software Engineer.
       </H1>
       <Description maxWidth="screen-md">
         A fullstack developer that will

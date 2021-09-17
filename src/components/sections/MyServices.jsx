@@ -9,7 +9,7 @@ import SkillDescription from '../UI/SkillDescription';
 const imageClasses = 'w-16 h-auto';
 
 const MyServices = () => (
-  <InnerContainer>
+  <InnerContainer id="myServices">
     <Col>
       <TitleMini>WHAT I DO</TitleMini>
       <H2>Specializing In</H2>
@@ -37,7 +37,7 @@ const MyServices = () => (
           </div>
           <SkillDescription
             title="Software"
-            description="VB.net, C#, C++, also legacy COBOL, Pascal"
+            description="VB.net, C#, C++, COBOL, Pascal, and other Legacy Systems"
           />
         </SkillsCard>
         <SkillsCard>
@@ -89,7 +89,7 @@ const MyServices = () => (
           </div>
           <SkillDescription
             title="Database"
-            description="SQLite, SQL, MongoDb, MS Access"
+            description="SQLite, SQL, MongoDb, MS Access, Firebase"
           />
         </SkillsCard>
       </div>
