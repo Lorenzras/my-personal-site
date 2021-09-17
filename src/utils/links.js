@@ -1,14 +1,14 @@
 const links = () => [
   {
-    url: '#aboutMe',
+    url: 'aboutMe',
     text: 'About',
   },
   {
-    url: '#myServices',
+    url: 'myServices',
     text: 'Services',
   },
   {
-    url: '#contactMe',
+    url: 'contactMe',
     text: 'Contact',
   },
 ];

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import NavMenu from '../menus/NavMenu';
 
-const NavMobile = ({ isOpen }) => (
+const NavMobile = ({ isOpen, setIsOpen }) => (
   <Transition
     show={isOpen}
     enter="transition ease-out duration-100 transform"
@@ -15,7 +15,7 @@ const NavMobile = ({ isOpen }) => (
   >
     <div className="md:hidden" id="mobile-menu">
       <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <NavMenu menuType="mobile" />
+        <NavMenu menuType="mobile" onClose={() => setIsOpen(false)} />
       </div>
     </div>
   </Transition>
@@ -23,6 +23,7 @@ const NavMobile = ({ isOpen }) => (
 
 NavMobile.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
 };
 
 export default NavMobile;

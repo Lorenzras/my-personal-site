@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
+
 import NavMobile from './NavMobile';
 import NavMenu from '../menus/NavMenu';
 
@@ -74,7 +75,7 @@ const Nav = () => {
           </div>
         </div>
 
-        <NavMobile {...{ isOpen }} />
+        <NavMobile {...{ isOpen, setIsOpen }} />
       </nav>
 
     </div>

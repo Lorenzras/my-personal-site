@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
+
 import Container from '../components/containers/Container';
 import AboutMe from '../components/sections/AboutMe';
 import ContactMe from '../components/sections/ContactMe';
