@@ -9,7 +9,7 @@ module.exports = {
     'gatsby-plugin-styled-components',
     'gatsby-plugin-image',
     {
-      resolve: 'gatsby-plugin-google-analytics',
+      resolve: 'gatsby-plugin-google-gtag',
       options: {
         // You can add multiple tracking ids and a pageview event will be fired for all of them.
         trackingIds: [
