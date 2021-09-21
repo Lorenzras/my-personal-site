@@ -9,7 +9,7 @@ import InnerContainer from '../containers/InnerContainer';
 import B from '../UI/B';
 
 const AboutMe = () => (
-  <Element name="aboutMe" className="element">
+  <Element name="aboutMe" className="mt-36 mb-60">
     <InnerContainer id="aboutMe">
       <Col>
         <TitleMini>ABOUT ME</TitleMini>
