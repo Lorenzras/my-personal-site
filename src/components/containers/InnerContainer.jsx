@@ -10,9 +10,17 @@ const InnerContainer = ({ id, children }) => {
   useEffect(() => {
     if (onScreen) {
       controls.start({
-        y: 0,
+        x: 0,
         opacity: 1,
-        zoom: 1.2,
+        transition: {
+          duration: 1,
+          ease: 'easeOut',
+        },
+      });
+    } else {
+      controls.start({
+        x: 50,
+        opacity: 0,
         transition: {
           duration: 1,
           ease: 'easeOut',
@@ -23,7 +31,7 @@ const InnerContainer = ({ id, children }) => {
   return (
     <motion.div
       ref={rootRef}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, x: 50 }}
       animate={controls}
       id={id}
       className="lazy-div mt-24 max-w-5xl mx-auto"
