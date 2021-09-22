@@ -10,7 +10,7 @@ import SkillDescription from '../UI/SkillDescription';
 const imageClasses = 'w-16 h-auto';
 
 const MyServices = () => (
-  <Element name="myServices" className="mb-60">
+  <Element name="myServices">
     <InnerContainer id="myServices">
       <Col>
         <TitleMini>WHAT I DO</TitleMini>

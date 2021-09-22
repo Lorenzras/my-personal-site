@@ -1,14 +1,21 @@
 import PropTypes from 'prop-types';
-import ZoomIn from '../animations/ZoomIn';
 
 const InnerContainer = ({ id, children }) => (
   <div
     id={id}
-    className="lazy-div mt-24 max-w-5xl mx-auto"
+    className="
+    flex
+    flex-wrap
+    content-center
+    justify-center
+    my-40 sm:my-36 md:my-32 lg:my-28
+    max-w-5xl
+    mx-auto
+    "
   >
-    <ZoomIn>
-      {children}
-    </ZoomIn>
+
+    {children}
+
   </div>
 );
 

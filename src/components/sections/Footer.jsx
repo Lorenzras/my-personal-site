@@ -1,5 +1,5 @@
 const Footer = () => (
-  <div className="-mt-16 md:-mt-32">
+  <div className="">
     <svg
       version="1.1"
       id="Calque_1"

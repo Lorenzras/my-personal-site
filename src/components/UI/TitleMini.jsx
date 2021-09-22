@@ -1,25 +1,14 @@
 import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
-
-const variants = {
-  visible: {
-    opacity: 1,
-    transition: {
-
-      duration: 1,
-    },
-  },
-  hidden: { opacity: 0 },
-
-};
+import Reveal, { reveal2 } from '../animations/Reveal';
 
 const TitleMini = ({ children }) => (
-  <motion.div
-    variants={variants}
-    className="text-yellow-600 font-semibold text-sm tracking-wider text-center mb-2"
-  >
-    {children}
-  </motion.div>
+  <Reveal variants={reveal2}>
+    <div
+      className="text-yellow-600 font-semibold text-sm tracking-wider text-center mb-2"
+    >
+      {children}
+    </div>
+  </Reveal>
 );
 
 TitleMini.propTypes = {
