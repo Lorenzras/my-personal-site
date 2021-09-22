@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import Reveal, { reveal2 } from '../animations/Reveal';
+import Reveal, { reveal2b } from '../animations/Reveal';
 
 const Description = ({ maxWidth, children }) => (
-  <Reveal variants={reveal2}>
+  <Reveal variants={reveal2b}>
     <div className={`text-base mx-auto text-green-800 text-center max-w-${maxWidth}`}>
       <p>
         {children}

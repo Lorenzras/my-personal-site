@@ -8,15 +8,17 @@ import { useEffect } from 'react';
 
 export const reveal = {
   hidden: {
-    x: 50,
+    scale: 2,
+    opacity: 0.5,
     transition: {
       duration: 0.5,
     },
   },
   visible: {
-    x: 0,
+    scale: 1,
+    opacity: 1,
     transition: {
-      duration: 3,
+      duration: 0.5,
     },
   },
 };
@@ -25,6 +27,23 @@ export const reveal2 = {
   hidden: {
     opacity: 0.5,
     x: -50,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1.5,
+    },
+  },
+};
+
+export const reveal2b = {
+  hidden: {
+    opacity: 0.5,
+    x: 50,
     transition: {
       duration: 0.5,
     },
