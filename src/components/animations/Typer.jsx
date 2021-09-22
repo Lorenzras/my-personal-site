@@ -9,7 +9,6 @@ const roles = [
   ' Frontend developer.',
   ' Software developer.',
   ' Japanese Language Teacher.',
-  ' mainly a computer gamer :)',
 ];
 
 const Typer = () => (
@@ -50,11 +49,6 @@ const Typer = () => (
         .typeString(roles[5])
         .pauseFor(delay)
         .deleteChars(roles[5].length)
-        .pauseFor(delay)
-
-        .typeString(roles[6])
-        .pauseFor(delay)
-        .deleteChars(roles[6])
         .pauseFor(delay)
 
         .start();
