@@ -25,7 +25,7 @@ const MyServices = () => (
               />
             </div>
             <SkillDescription
-              title="Hosting and Cloud Service"
+              title="Hosting and Cloud"
               description="AWS Amplify, AWS EC2, Netflify, Google Cloud, Kintone, Shared Host"
             />
           </SkillsCard>

@@ -8,9 +8,10 @@ const InnerContainer = ({ id, children }) => (
     flex-wrap
     content-center
     justify-center
-    my-40 sm:my-36 md:my-32 lg:my-28
+    my-36
     max-w-5xl
     mx-auto
+    px-1
     "
   >
 

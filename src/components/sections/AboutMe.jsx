@@ -11,7 +11,7 @@ import Col from '../containers/Col';
 import Reveal, { reveal3 } from '../animations/Reveal';
 
 const AboutMe = () => (
-  <Element name="aboutMe">
+  <Element name="aboutMe" className="-mt-24">
     <InnerContainer id="aboutMe">
       <Col>
         <TitleMini>ABOUT ME</TitleMini>

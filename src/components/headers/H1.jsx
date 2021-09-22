@@ -3,7 +3,7 @@ import Reveal from '../animations/Reveal';
 
 const H1 = ({ children }) => (
   <Reveal>
-    <h1 className="text-4xl text-center font-semibold mb-4 font-serif">
+    <h1 className="text-2xl sm:text-3xl md:text-4xl text-center font-semibold mb-4 font-serif">
       {children}
     </h1>
   </Reveal>
