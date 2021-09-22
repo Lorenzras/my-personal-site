@@ -1,45 +1,16 @@
 import PropTypes from 'prop-types';
-import { motion, useAnimation } from 'framer-motion';
-import { useEffect, useRef } from 'react';
-import useOnScreen from '../../hooks/useOnScreen';
+import ZoomIn from '../animations/ZoomIn';
 
-const InnerContainer = ({ id, children }) => {
-  const controls = useAnimation();
-  const rootRef = useRef();
-  const onScreen = useOnScreen(rootRef);
-  useEffect(() => {
-    if (onScreen) {
-      controls.start({
-        x: 0,
-        opacity: 1,
-        transition: {
-          duration: 1,
-          ease: 'easeOut',
-        },
-      });
-    } else {
-      controls.start({
-        x: 50,
-        opacity: 0,
-        transition: {
-          duration: 1,
-          ease: 'easeOut',
-        },
-      });
-    }
-  }, [controls, onScreen]);
-  return (
-    <motion.div
-      ref={rootRef}
-      initial={{ opacity: 0, x: 50 }}
-      animate={controls}
-      id={id}
-      className="lazy-div mt-24 max-w-5xl mx-auto"
-    >
+const InnerContainer = ({ id, children }) => (
+  <div
+    id={id}
+    className="lazy-div mt-24 max-w-5xl mx-auto"
+  >
+    <ZoomIn>
       {children}
-    </motion.div>
-  );
-};
+    </ZoomIn>
+  </div>
+);
 
 InnerContainer.propTypes = {
   children: PropTypes.node.isRequired,
