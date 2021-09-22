@@ -9,6 +9,7 @@ import InnerContainer from '../containers/InnerContainer';
 import B from '../UI/B';
 import Col from '../containers/Col';
 import Reveal, { reveal3 } from '../animations/Reveal';
+import Typer from '../animations/Typer';
 
 const AboutMe = () => (
   <Element name="aboutMe" className="-mt-24">
@@ -16,10 +17,8 @@ const AboutMe = () => (
       <Col>
         <TitleMini>ABOUT ME</TitleMini>
         <H1>
-          Hello, I&apos;m
-          <TextTyped> Lorenz Ras </TextTyped>
-          <br />
-          I’m a Software Engineer.
+          Hello, I&apos;m Lorenz Ras
+          <Typer />
         </H1>
         <Description maxWidth="screen-md">
           A fullstack developer that will

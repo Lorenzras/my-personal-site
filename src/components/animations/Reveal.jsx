@@ -69,6 +69,7 @@ export const reveal3 = {
     opacity: 1,
     y: 0,
     transition: {
+      staggerChildren: 0.5,
       duration: 1.5,
     },
   },
