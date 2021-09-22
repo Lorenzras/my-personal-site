@@ -48,8 +48,6 @@ const Typer = () => (
 
         .typeString(roles[5])
         .pauseFor(delay)
-        .deleteChars(roles[5].length)
-        .pauseFor(delay)
 
         .start();
     }}
