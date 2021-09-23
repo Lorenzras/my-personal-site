@@ -36,7 +36,7 @@ const NotFoundPage = () => (
         😔
       </span>
       {' '}
-      we couldn’t find what you were looking for.
+      we couldn’t find what you were looking for. Are you lost?
       <br />
       {process.env.NODE_ENV === 'development' ? (
         <>
