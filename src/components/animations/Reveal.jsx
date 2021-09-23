@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 
 export const reveal = {
   hidden: {
-    scale: 2,
-    opacity: 0.5,
+    scale: 3,
+    opacity: 0.8,
     transition: {
       duration: 0.5,
     },
