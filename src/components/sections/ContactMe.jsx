@@ -11,7 +11,7 @@ const ContactDetails = () => (
 
   <div className="grid grid-cols-1 lg:grid-cols-3 text-center z-50">
     <Reveal variants={reveal3}>
-      <div className="place-self-center mt-8"><a className="text-xl font-bold no-underline hover:underline" href="tel:+817014529707">(+81) 70-1452-9707</a></div>
+      <div className="place-self-center mt-8"><a className="font-bold no-underline hover:underline" href="tel:+817014529707">(+81) 70-1452-9707</a></div>
     </Reveal>
     <Reveal variants={reveal3}>
       <div className="place-self-center mt-8"><a className="text-2xl font-bold no-underline hover:underline" href="mailto:contact@lenzlab.com">contact@lenzlab.com</a></div>
