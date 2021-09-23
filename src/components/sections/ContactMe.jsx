@@ -40,9 +40,9 @@ const ContactMe = () => (
           you are trying to solve.
           I&apos;d love to listen and see if there&apos;s anything I can do to help you.
         </Description>
+        <ContactDetails />
 
       </Col>
-      <ContactDetails />
 
     </InnerContainer>
 
