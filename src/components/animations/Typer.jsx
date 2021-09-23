@@ -53,9 +53,10 @@ const Typer = () => (
         .typeString('mer...')
 
         .pauseFor(1500)
-        .typeString(roles[6])
-        .pauseFor(1500)
-        .typeString(' :)')
+        .typeString('yes, I mean, I also translate Japanese hent')
+        .pauseFor(200)
+        .deleteChars(4)
+        .typeString('documents into english.')
         .pauseFor(5000)
         .deleteAll()
         .typeString('Again? :D')
