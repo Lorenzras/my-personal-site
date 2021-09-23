@@ -52,7 +52,7 @@ const Typer = () => (
         .typeString(roles[6])
         .pause(1500)
         .typeString(' :)')
-        .pause(delay)
+        .pause(5000)
 
         .start();
     }}
