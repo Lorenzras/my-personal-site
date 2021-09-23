@@ -8,7 +8,8 @@ const roles = [
   ' Backend developer.',
   ' Frontend developer.',
   ' Software developer.',
-  ' Japanese Language Teacher.',
+  ' Gamer...',
+  'yes, I mean, I also translate Japanese documents into English. ',
 ];
 
 const Typer = () => (
@@ -47,7 +48,11 @@ const Typer = () => (
         .pauseFor(delay)
 
         .typeString(roles[5])
-        .pauseFor(delay)
+        .pauseFor(1500)
+        .typeString(roles[6])
+        .pause(1500)
+        .typeString(' :)')
+        .pause(delay)
 
         .start();
     }}

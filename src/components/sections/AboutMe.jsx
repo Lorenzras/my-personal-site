@@ -27,7 +27,7 @@ const AboutMe = () => (
         </Description>
         <Reveal variants={reveal3}>
           <StaticImage
-            className="max-w-md mx-auto mt-6"
+            className="max-w-md mx-auto mt-6 justify-content-center"
             src="../../assets/images/slide1.png"
             alt="a developer"
           />
