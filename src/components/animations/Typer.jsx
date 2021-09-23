@@ -4,11 +4,11 @@ const delay = 500;
 
 const roles = [
   ' Software Engineer.',
-  'n RPA developer.',
-  ' Backend developer.',
-  ' Frontend developer.',
-  ' Software developer.',
-  ' Gamer...',
+  'n RPA Developer.',
+  ' Backend Developer.',
+  ' Frontend Developer.',
+  ' Filipino based in Japan.',
+  ' Gamer.',
   'yes, I mean, I also translate Japanese documents into English. ',
 ];
 
@@ -47,13 +47,22 @@ const Typer = () => (
         .deleteChars(roles[4].length)
         .pauseFor(delay)
 
-        .typeString(roles[5])
+        .typeString(' Gay')
+        .pauseFor(500)
+        .deleteChars(1)
+        .typeString('mer...')
+
         .pauseFor(1500)
         .typeString(roles[6])
         .pauseFor(1500)
         .typeString(' :)')
         .pauseFor(5000)
-
+        .deleteAll()
+        .typeString('Again? :D')
+        .pauseFor(delay)
+        .deleteAll()
+        .typeString('Ok!')
+        .pauseFor(1000)
         .start();
     }}
   />
