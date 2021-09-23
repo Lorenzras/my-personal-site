@@ -26,11 +26,13 @@ const AboutMe = () => (
           .
         </Description>
         <Reveal variants={reveal3}>
-          <StaticImage
-            className="max-w-md mx-auto mt-6 justify-content-center"
-            src="../../assets/images/slide1.png"
-            alt="a developer"
-          />
+          <div className="flex justify-center">
+            <StaticImage
+              className="max-w-md mt-6 "
+              src="../../assets/images/slide1.png"
+              alt="a developer"
+            />
+          </div>
         </Reveal>
       </Col>
     </InnerContainer>

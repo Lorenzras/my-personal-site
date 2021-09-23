@@ -50,9 +50,9 @@ const Typer = () => (
         .typeString(roles[5])
         .pauseFor(1500)
         .typeString(roles[6])
-        .pause(1500)
+        .pauseFor(1500)
         .typeString(' :)')
-        .pause(5000)
+        .pauseFor(5000)
 
         .start();
     }}
