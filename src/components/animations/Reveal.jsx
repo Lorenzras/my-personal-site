@@ -90,7 +90,6 @@ const Reveal = ({ children, variants }) => {
   return (
     <motion.div
       ref={ref}
-      className="mx-auto"
       initial="hidden"
       animate={controls}
       variants={variants}
