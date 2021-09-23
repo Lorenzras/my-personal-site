@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
+import Reveal from '../animations/Reveal';
 
 const H1 = ({ children }) => (
-  <h1 className="text-4xl text-center font-semibold mb-7 font-serif">
-    {children}
-  </h1>
+  <Reveal>
+    <h1 className="text-2xl sm:text-3xl md:text-4xl text-center font-semibold mb-4 font-serif">
+      {children}
+    </h1>
+  </Reveal>
 );
 
 H1.propTypes = {

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 
 const IconCard = ({ imageFile, title, description }) => (
   <div>
-
     <div>
       {title}
       {imageFile}

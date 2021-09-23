@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
+import Reveal, { reveal2 } from '../animations/Reveal';
 
 const TitleMini = ({ children }) => (
-  <div className="text-yellow-600 font-semibold text-sm tracking-wider text-center mb-2">
-    {children}
-  </div>
+  <Reveal variants={reveal2}>
+    <div
+      className="text-yellow-600 font-semibold text-sm tracking-wider text-center mb-2"
+    >
+      {children}
+    </div>
+  </Reveal>
 );
 
 TitleMini.propTypes = {
