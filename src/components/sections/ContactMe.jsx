@@ -9,15 +9,15 @@ import Reveal, { reveal3 } from '../animations/Reveal';
 
 const ContactDetails = () => (
 
-  <div className="grid grid-cols-1 lg:grid-cols-3 mt-4 lg:mt-0 text-center z-50">
+  <div className="grid grid-cols-1 lg:grid-cols-3 text-center z-50">
     <Reveal variants={reveal3}>
-      <div className="font-bold text-3xl"><a className="font-bold no-underline hover:underline" href="tel:+817014529707">(+81) 70-1452-9707</a></div>
+      <div className="place-self-center mt-8"><a className="text-xl font-bold no-underline hover:underline" href="tel:+817014529707">(+81) 70-1452-9707</a></div>
     </Reveal>
     <Reveal variants={reveal3}>
-      <div className="place-self-center"><a className="font-bold no-underline hover:underline" href="mailto:contact@lenzlab.com">contact@lenzlab.com</a></div>
+      <div className="place-self-center mt-8"><a className="text-2xl font-bold no-underline hover:underline" href="mailto:contact@lenzlab.com">contact@lenzlab.com</a></div>
     </Reveal>
     <Reveal variants={reveal3}>
-      <div className="place-self-center">Japan, Toyohashi, Aichi-ken</div>
+      <div className="place-self-center mt-8">Japan, Toyohashi, Aichi-ken</div>
     </Reveal>
   </div>
 

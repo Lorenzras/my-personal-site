@@ -3,7 +3,6 @@ import { Element } from 'react-scroll';
 import TitleMini from '../UI/TitleMini';
 
 import H1 from '../headers/H1';
-import TextTyped from '../UI/TextTyped';
 import Description from '../UI/Description';
 import InnerContainer from '../containers/InnerContainer';
 import B from '../UI/B';
