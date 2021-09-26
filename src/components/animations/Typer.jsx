@@ -47,23 +47,11 @@ const Typer = () => (
         .deleteChars(roles[4].length)
         .pauseFor(delay)
 
-        .typeString(' Gay')
-        .pauseFor(500)
-        .deleteChars(1)
-        .typeString('mer...')
-
-        .pauseFor(1500)
-        .typeString('yes, I mean, I also translate Japanese hent')
-        .pauseFor(200)
-        .deleteChars(4)
-        .typeString('documents into english.')
-        .pauseFor(5000)
-        .deleteAll()
-        .typeString('Again? :D')
+        .typeString(' Gamer')
         .pauseFor(delay)
         .deleteAll()
-        .typeString('Ok!')
-        .pauseFor(1000)
+        .typeString(' Scroll down for more. ;)')
+        .pauseFor(5000)
         .start();
     }}
   />
