@@ -90,7 +90,12 @@ const ProjectList = ({ contents, direction }) => {
 
   return (
     <div className="w-screen mt-12">
-      <Marquee direction={direction} gradient={false} speed={20}>
+      <Marquee
+        direction={direction}
+        gradient={false}
+        speed={20}
+        pauseOnHover
+      >
         {marqueeContent}
       </Marquee>
     </div>
