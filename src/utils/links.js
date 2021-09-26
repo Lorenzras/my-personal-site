@@ -8,6 +8,10 @@ const links = () => [
     text: 'Services',
   },
   {
+    url: 'projects',
+    text: 'Projects',
+  },
+  {
     url: 'contactMe',
     text: 'Contact',
   },

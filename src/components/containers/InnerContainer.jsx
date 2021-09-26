@@ -9,8 +9,8 @@ const InnerContainer = ({ id, children }) => (
     content-center
     justify-center
     my-36
-    mx-auto
     px-1
+    mx-2 md:mx-24
     "
   >
 

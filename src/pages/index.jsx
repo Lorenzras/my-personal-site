@@ -7,6 +7,7 @@ import ContactMe from '../components/sections/ContactMe';
 import Footer from '../components/sections/Footer';
 import MyServices from '../components/sections/MyServices';
 import Nav from '../components/sections/Nav';
+import Projects from '../components/sections/Projects';
 
 const IndexPage = () => (
   <div className="bg-gradient-to-t from-yellow-100 to-white">
@@ -19,7 +20,9 @@ const IndexPage = () => (
       </Helmet>
       <AboutMe />
       <MyServices />
+      <Projects />
       <ContactMe />
+
     </Container>
     <Footer />
   </div>

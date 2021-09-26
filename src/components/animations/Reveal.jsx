@@ -88,6 +88,7 @@ const Reveal = ({ children, variants }) => {
   }, [controls, inView]);
 
   return (
+
     <motion.div
       ref={ref}
       initial="hidden"
@@ -96,6 +97,7 @@ const Reveal = ({ children, variants }) => {
     >
       {children}
     </motion.div>
+
   );
 };
 
