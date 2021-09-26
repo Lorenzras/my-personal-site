@@ -60,12 +60,12 @@ const contents2 = [
     link: 'https://www.runescape.com',
   },
   {
-    title: 'Kintone and Chatwork Integration',
+    title: 'Kintone and Chatwork',
     description: ['Written in Javascript.', 'Automatically sends message to Chatwork on any Kintone record manipulation.', 'Uses Kintone Webhook.', 'Uses Chatwork API.'],
     link: 'https://github.com/Lorenzras/kintone-customize/',
   },
   {
-    title: 'Kintone and Website Integration',
+    title: 'Kintone and Web Form',
     description: ['Written in Javascript.', 'Saves data to kintone when user submits form.', 'Automatically send email to both user and the web site owner.'],
     link: 'https://github.com/Lorenzras/kintone-customize/',
   },
