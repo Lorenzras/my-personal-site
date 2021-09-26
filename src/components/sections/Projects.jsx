@@ -81,6 +81,7 @@ const ProjectList = ({ contents, direction }) => {
   const marqueeContent = contents.map(
     ({ title, description, link }) => (
       <ProjectsCard
+        key={title}
         title={title}
         description={description}
         link={link}
