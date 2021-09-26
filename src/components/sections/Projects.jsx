@@ -51,7 +51,7 @@ const contents2 = [
   },
   {
     title: 'Legacy Software Encoder',
-    description: ['Processes data from legacy softwares.', 'Automate login, input, and validation.', 'Avoid\'s human error.', 'Developed in UiPath'],
+    description: ['Processes data from legacy softwares.', 'Automate login, input, and validation.', 'Avoids human error.', 'Developed in UiPath'],
     link: 'https://www.uipath.com/',
   },
   {
