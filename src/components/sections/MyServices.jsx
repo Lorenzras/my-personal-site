@@ -52,7 +52,7 @@ const MyServices = () => (
             </div>
             <SkillDescription
               title="Backend"
-              description="PHP (Laravel, CI, Wordpress), Python, C++, Node, Deno, Java"
+              description="PHP (Laravel, CI, Wordpress), Node, Deno, Java"
             />
           </SkillsCard>
           <SkillsCard>
