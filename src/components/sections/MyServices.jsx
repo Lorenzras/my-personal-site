@@ -26,7 +26,7 @@ const MyServices = () => (
             </div>
             <SkillDescription
               title="Hosting and Cloud"
-              description="AWS Amplify, AWS EC2, Netflify, Google Cloud, Kintone, Shared Host"
+              description="AWS Amplify, Netflify, Heroku, Kintone, Shared Host"
             />
           </SkillsCard>
           <SkillsCard>
@@ -39,7 +39,7 @@ const MyServices = () => (
             </div>
             <SkillDescription
               title="Software"
-              description="VB.net, C#, C++, COBOL, Pascal, and other Legacy Systems"
+              description="VB, Pascal, and other Legacy Systems"
             />
           </SkillsCard>
           <SkillsCard>
@@ -78,7 +78,7 @@ const MyServices = () => (
             </div>
             <SkillDescription
               title="RPA"
-              description="VBA, UiPath, Microsoft Powerautomate, Python, Pascal, Java"
+              description="VBA, UiPath, Microsoft Powerautomate, Python, Pascal"
             />
           </SkillsCard>
           <SkillsCard>

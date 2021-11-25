@@ -30,10 +30,10 @@ const ContactMe = () => (
       <Col>
         <TitleMini>CONTACT ME</TitleMini>
         <H2>
-          I Am Here To Help
+          Let me join you.
         </H2>
         <Description maxWidth="screen-md">
-          I’m always interested in hearing about new projects and opportunities.
+          I am looking for a company where I can stay for the long term.
           <br />
           You can
           <B> tell me about the problems </B>
