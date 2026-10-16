@@ -29,7 +29,7 @@ export default function Factory() {
     <>
       <Canvas
         flat
-        shadows="soft"
+        shadows
         dpr={dpr}
         camera={{ position: [7, 5, 11], fov: 42 }}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
