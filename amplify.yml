@@ -3,9 +3,14 @@ frontend:
   phases:
     preBuild:
       commands:
+        # Next.js 16 needs Node 20.9+; older Amplify build images default lower.
+        - nvm install 22
+        - nvm use 22
+        - node -v
         - npm --prefix next ci
     build:
       commands:
+        - nvm use 22
         - npm --prefix next run build
   artifacts:
     baseDirectory: next/out
