@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useScroll } from '@react-three/drei';
 import * as THREE from 'three';
@@ -16,6 +16,19 @@ export default function CameraRig() {
   const goal = useMemo(() => new THREE.Vector3(), []);
   const look = useMemo(() => new THREE.Vector3(), []);
   const lookNow = useMemo(() => new THREE.Vector3(0, 1, 0), []);
+
+  // drei only binds its scroll listener if the event target swap has already
+  // happened when its effect runs, which it often hasn't with R3F v9, leaving
+  // the page scrollable but the scene frozen. Feed the scroll value ourselves.
+  useEffect(() => {
+    const el = scroll.el;
+    const onScroll = () => {
+      const max = el.scrollHeight - el.clientHeight;
+      if (max > 0) scroll.scroll.current = el.scrollTop / max;
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, [scroll]);
 
   useFrame((state, delta) => {
     const dt = Math.min(delta, 0.1);
