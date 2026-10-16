@@ -1,6 +1,6 @@
 'use client';
 
-import { profile, stations, projects } from '@/content/site';
+import { profile, stations, projects, sections } from '@/content/site';
 
 function Section({ children, align = 'left', className = '' }) {
   return (
@@ -14,20 +14,22 @@ export default function Overlay({ onSelect }) {
   return (
     <main className="overlay">
       <Section className="hero">
-        <p className="kicker">LENZLAB · AUTOMATION FACTORY</p>
+        <p className="kicker">{profile.kicker}</p>
         <h1>{profile.name}</h1>
         <p className="role">{profile.role}</p>
         <p className="tagline">{profile.tagline}</p>
+        <p className="tagline-jp">{profile.taglineJp}</p>
         <p className="muted">{profile.intro}</p>
-        <p className="hint">Scroll to start the line ↓</p>
+        <p className="hint">{profile.hint}</p>
       </Section>
 
       {stations.map((s, i) => (
         <Section key={s.id}>
           <p className="kicker" style={{ color: s.color }}>
-            STATION {String(i + 1).padStart(2, '0')}
+            STATION {String(i + 1).padStart(2, '0')} · {s.jp}
           </p>
           <h2>{s.label}</h2>
+          <p className="action" style={{ color: s.color }}>{s.action}</p>
           <p className="muted">{s.blurb}</p>
           <ul className="chips">
             {s.items.map((item) => (
@@ -38,9 +40,9 @@ export default function Overlay({ onSelect }) {
       ))}
 
       <Section align="right" className="showroom">
-        <p className="kicker">SHOWROOM</p>
-        <h2>Finished products</h2>
-        <p className="muted">Click a pedestal or a card to inspect it.</p>
+        <p className="kicker">{sections.showroom.kicker}</p>
+        <h2>{sections.showroom.title}</h2>
+        <p className="muted">{sections.showroom.body}</p>
         <div className="cards">
           {projects.map((p) => (
             <button type="button" key={p.title} className="card" onClick={() => onSelect(p)}>
@@ -52,16 +54,14 @@ export default function Overlay({ onSelect }) {
       </Section>
 
       <Section align="right">
-        <p className="kicker" style={{ color: '#34d399' }}>SHIPPING DOCK</p>
-        <h2>Got a process that should run itself?</h2>
-        <p className="muted">
-          Tell me about the problem you are trying to solve. I&apos;d love to listen and see how I can help.
-        </p>
+        <p className="kicker" style={{ color: '#34d399' }}>{sections.contact.kicker}</p>
+        <h2>{sections.contact.title}</h2>
+        <p className="muted">{sections.contact.body}</p>
         <div className="actions">
           <a className="btn" href={`mailto:${profile.email}`}>{profile.email}</a>
           <a className="btn ghost" href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
         </div>
-        <p className="muted small">{profile.location}</p>
+        <p className="muted small">{profile.location} · {sections.contact.signoff}</p>
       </Section>
     </main>
   );
