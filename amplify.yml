@@ -1,0 +1,16 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm --prefix next ci
+    build:
+      commands:
+        - npm --prefix next run build
+  artifacts:
+    baseDirectory: next/out
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - next/node_modules/**/*
