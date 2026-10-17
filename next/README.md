@@ -1,12 +1,13 @@
-# LenzLab 3D: Automation Factory
+# LenzLab: motion site
 
-The new lenzlab.com homepage: a 3D conveyor line built with Next.js, React Three Fiber and drei.
-Scrolling moves the camera from the intake hopper, through one machine per skill area
-(RPA → AI & Data → Backend → Frontend → Cloud), into the project showroom and out to the
-shipping dock (contact). Work items change form at each station: paper → stamped form →
-data orb → API capsule → UI window → parcel. Everything is procedural (no downloaded assets).
+The lenzlab.com homepage, motion version. Next.js (static export) + [Motion](https://motion.dev) for
+scroll-linked and in-view animation. No 3D; the 3D "Automation Factory" lives on its own branch.
 
-Add `?quality=low` to the URL to force the lighter render path (phones get it automatically).
+The page leads with client pain points, each crossed out as you scroll and replaced with the fix,
+then services, an animated AWS Bedrock pipeline, security basics, integration ideas, process, work and contact.
+`/masking/` is a placeholder for the AI document masking demo (an animated mock document for now).
+
+Animations respect the OS "reduce motion" setting.
 
 ## Run
 
@@ -18,15 +19,10 @@ npm run build   # static export to ./out
 
 ## Edit content
 
-Everything visible on the page lives in `content/site.js` (profile, stations, projects).
-
-## Add a 3D project
-
-1. Put a `.glb` file in `public/models/`.
-2. Add `model: '/models/your-file.glb'` to the project in `content/site.js`.
-
-Its pedestal in the showroom will show the model instead of the built-in placeholder (`exhibit`).
+Everything visible lives in `content/site.js`.
+Items with `suggested: true` are proposed ideas and show a "Proposed" badge: delete them, or remove
+the flag once they're true.
 
 ## Deploy
 
-`amplify.yml` in the repo root builds this folder and publishes `next/out` on AWS Amplify.
+`amplify.yml` in the repo root builds this folder and serves `next/out`.
