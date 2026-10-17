@@ -18,14 +18,16 @@ export default {
   hero: {
     kicker: 'LenzLab · システム連携・業務アプリ開発・セキュアなAI',
     prefix: '',
-    suffix: 'を、やめる。',
+    suffix: '、もう人がやらなくていい。',
     pains: [
       '同じデータの二重入力',
-      '手作業の黒塗り',
+      '書類の黒塗り',
       '毎週のCSV出力',
       'チャットでの進捗の催促',
     ],
     resolve: '自動化して、データは安全に手元に。',
+    stateToday: 'いまは手作業',
+    stateFixed: '自動化',
     intro:
       'ツール同士がつながっていないから、人が転記している。Backlog、kintone、チャット、会計、Webサイト、AIをつなぎ、一度の入力でデータが自動で行き渡る仕組みをつくります。セキュリティ対策を施し、お客様のクラウド環境内で構築します。',
     ctaPrimary: 'お悩みを相談する',
@@ -36,14 +38,15 @@ export default {
     kicker: '課題',
     title: 'その作業、まだ手作業ですか？',
     body: 'どれも毎週の時間を奪い、ミスの原因になる作業です。一度仕組みをつくれば、あとは自動で回ります。',
-    painLabel: '課題',
-    fixLabel: '解決策',
+    stateToday: 'いま',
+    stateFixed: '自動化すると',
     items: [
       {
         id: 'retype',
         tag: 'システム連携',
         pain: '顧客情報を、kintone、Backlog、メール、会計ソフトにそれぞれ手入力。気づけば4か所で内容が食い違っています。',
         fix: '入力は一度だけ。他のシステムは自動で更新され、同期に失敗したときは通知が届きます。',
+        stat: { label: '顧客1件あたりの入力回数', from: '4', to: '1' },
         link: { href: '/work/kintone-backlog-sync/', label: '営業と開発の同期を見る' },
       },
       {

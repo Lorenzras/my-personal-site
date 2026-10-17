@@ -12,22 +12,43 @@ const LINES = Array.from({ length: 7 }, (_, i) => {
   return `M -50 ${y} C 300 ${y - 120 + a}, 600 ${y + 120 - a}, 900 ${y} S 1300 ${y - 80}, 1500 ${y + a}`;
 });
 
-// "Stop ____" cycles through client chores; the dots let visitors pick one.
-function CyclingPain({ pains, suffix, label }) {
+// "Stop ____" cycles through client chores. Each phrase starts marked as manual
+// work (vermilion), then the status row flips to "Automated" (teal) and the
+// highlighter under the phrase turns teal. The dots let visitors pick one.
+// Leading punctuation stays glued to the phrase; the rest wraps as one unit
+// (「…、」 / 「もう人がやらなくていい。」) instead of breaking mid-phrase.
+function Suffix({ text }) {
+  const lead = /^[、。，,]/.test(text) ? text[0] : '';
+  return (
+    <span className="cycle-suffix">
+      {lead}
+      <span className="cycle-rest">{text.slice(lead.length)}</span>
+    </span>
+  );
+}
+
+const FLIP_AT = 1200; // ms after a phrase appears
+const STEP = 3600; // ms per phrase
+
+function CyclingPain({ pains, suffix, label, stateToday, stateFixed }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [fixed, setFixed] = useState(false);
   // The first phrase is readable straight away; only later ones blur in.
   const first = useRef(true);
   useEffect(() => { if (i !== 0) first.current = false; }, [i]);
   const reduce = useReducedMotion();
   useEffect(() => {
-    if (paused || reduce) return;
-    const t = setInterval(() => setI((n) => (n + 1) % pains.length), 3600);
-    return () => clearInterval(t);
-  }, [paused, reduce, pains.length]);
+    // Reduced motion: show the automated state, no cycling.
+    if (reduce) { setFixed(true); return undefined; }
+    setFixed(false);
+    const flip = setTimeout(() => setFixed(true), FLIP_AT);
+    const next = paused ? null : setTimeout(() => setI((n) => (n + 1) % pains.length), STEP);
+    return () => { clearTimeout(flip); clearTimeout(next); };
+  }, [i, paused, reduce, pains.length]);
   return (
     <>
-      <span className="cycle">
+      <span className={`cycle${fixed ? ' is-fixed' : ''}`}>
         <AnimatePresence mode="wait">
           <motion.span
             key={i}
@@ -37,29 +58,31 @@ function CyclingPain({ pains, suffix, label }) {
             exit={{ opacity: 0, filter: 'blur(8px)' }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.span
-              className="strike"
-              initial={{ backgroundSize: '0% 0.08em' }}
-              animate={{ backgroundSize: '100% 0.08em' }}
-              transition={{ delay: 2, duration: 0.6, ease: 'easeInOut' }}
-            >
-              {pains[i]}
-            </motion.span>
+            <span className="hl">{pains[i]}</span>
           </motion.span>
         </AnimatePresence>
-        {suffix && <span className="cycle-suffix">{suffix}</span>}
+        {suffix && <Suffix text={suffix} />}
       </span>
-      <span className="cycle-dots" onMouseLeave={() => setPaused(false)} role="group" aria-label={label}>
-        {pains.map((p, n) => (
-          <button
-            key={p}
-            type="button"
-            aria-label={p}
-            className={n === i ? 'on' : ''}
-            onMouseEnter={() => { setPaused(true); setI(n); }}
-            onClick={() => { setPaused(true); setI(n); }}
-          />
-        ))}
+      <span className={`hero-status${fixed ? ' is-fixed' : ''}`}>
+        <span className="hs-chip hs-today" aria-hidden="true"><span className="hs-dot" />{stateToday}</span>
+        <span className="hs-track" aria-hidden="true"><span /></span>
+        <span className="hs-chip hs-fixed" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8.5l3.2 3L13 4.5" /></svg>
+          {stateFixed}
+        </span>
+        <span className="cycle-dots" onMouseLeave={() => setPaused(false)} role="group" aria-label={label}>
+          {pains.map((p, n) => (
+            <button
+              key={p}
+              type="button"
+              aria-label={p}
+              aria-pressed={n === i}
+              className={n === i ? 'on' : ''}
+              onMouseEnter={() => { setPaused(true); setI(n); }}
+              onClick={() => { setPaused(true); setI(n); }}
+            />
+          ))}
+        </span>
       </span>
     </>
   );
@@ -104,7 +127,7 @@ export default function Hero({ t, lang }) {
           {t.kicker}
         </motion.p>
         <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-          {t.prefix} <CyclingPain pains={t.pains} suffix={t.suffix} label={t.kicker} />
+          {t.prefix} <CyclingPain pains={t.pains} suffix={t.suffix} label={t.kicker} stateToday={t.stateToday} stateFixed={t.stateFixed} />
           <span className="accent">{t.resolve}</span>
         </motion.h1>
         <motion.p className="lead" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.7 }}>

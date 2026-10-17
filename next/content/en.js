@@ -26,6 +26,8 @@ export default {
       'chasing status in chat',
     ],
     resolve: 'Automate it. Keep your data secure.',
+    stateToday: 'By hand today',
+    stateFixed: 'Automated',
     intro:
       'Your tools don’t talk to each other, so your staff do the copying. I connect Backlog, kintone, chat, accounting, your website and AI, so data is entered once and moves on its own. Securely, and inside your own cloud.',
     ctaPrimary: 'Tell me the problem',
@@ -36,14 +38,15 @@ export default {
     kicker: 'THE PROBLEM',
     title: 'Where your team’s hours go',
     body: 'Each of these costs time every week and creates errors. Each has a fix that runs on its own once built.',
-    painLabel: 'Problem',
-    fixLabel: 'Fix',
+    stateToday: 'Today',
+    stateFixed: 'With automation',
     items: [
       {
         id: 'retype',
         tag: 'Integration',
         pain: 'One customer is typed into kintone, Backlog, email and accounting. Four copies, four versions.',
         fix: 'Enter it once. The other systems update themselves, and you get an alert if a sync fails.',
+        stat: { label: 'Entries per customer', from: '4', to: '1' },
         link: { href: '/work/kintone-backlog-sync/', label: 'See the sales and development sync' },
       },
       {
