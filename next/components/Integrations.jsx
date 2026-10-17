@@ -8,7 +8,8 @@ const R = 40; // node orbit radius, in % of the hub box
 
 const pos = (i, n) => {
   const a = (i / n) * Math.PI * 2 - Math.PI / 2;
-  return [50 + R * Math.cos(a), 50 + R * Math.sin(a)];
+  // Rounded so server and browser render identical numbers (no hydration mismatch).
+  return [50 + R * Math.cos(a), 50 + R * Math.sin(a)].map((v) => Math.round(v * 1000) / 1000);
 };
 
 function Spoke({ i, n, progress, on }) {
