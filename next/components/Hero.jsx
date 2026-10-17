@@ -115,8 +115,10 @@ export default function Hero({ t, lang }) {
           <a className="btn ghost" href={`/${lang}/#work`}>{t.ctaSecondary}</a>
         </motion.div>
       </motion.div>
-      <motion.div className="hero-visual" style={{ opacity: fade }} initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
-        <HeroVisual />
+      <motion.div className="hero-visual" style={{ opacity: fade }}>
+        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
+          <HeroVisual />
+        </motion.div>
       </motion.div>
       <motion.div className="scroll-cue" style={{ opacity: fade }} aria-hidden>
         <span />
