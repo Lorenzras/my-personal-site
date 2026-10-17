@@ -11,7 +11,7 @@ export default {
     problems: 'Problems',
     services: 'Services',
     integrations: 'Integrations',
-    work: 'Demos',
+    work: 'Examples',
     contact: 'Contact',
   },
 
@@ -29,9 +29,9 @@ export default {
     stateToday: 'By hand today',
     stateFixed: 'Automated',
     intro:
-      'Your tools don’t talk to each other, so your staff do the copying. I connect Backlog, kintone, chat, accounting, your website and AI, so data is entered once and moves on its own. Securely, and inside your own cloud.',
+      'Your tools don’t talk to each other, so your staff do the copying. I connect Backlog, kintone, chat, accounting, your website and AI, so data is entered once and moves on its own, with security planned in from the start.',
     ctaPrimary: 'Tell me the problem',
-    ctaSecondary: 'See it running',
+    ctaSecondary: 'See examples',
   },
 
   pains: {
@@ -46,34 +46,34 @@ export default {
         tag: 'Integration',
         pain: 'One customer is typed into kintone, Backlog, email and accounting. Four copies, four versions.',
         fix: 'Enter it once. The other systems update themselves, and you get an alert if a sync fails.',
-        stat: { label: 'Entries per customer', from: '4', to: '1' },
+        stat: { label: 'Example: entries per customer', from: '4', to: '1' },
         link: { href: '/work/kintone-backlog-sync/', label: 'See the sales and development sync' },
       },
       {
         id: 'status',
         tag: 'Notifications',
         pain: 'Important updates go unnoticed until a customer asks or a deadline passes.',
-        fix: 'The right person gets a message in Slack, Chatwork or LINE WORKS the moment something changes in Backlog, kintone or any connected tool.',
+        fix: 'The right person can get a message in Slack, Chatwork, LINE WORKS or another chat tool the moment something changes in Backlog, kintone or any connected tool.',
         link: { href: '/work/kintone-chat-alerts/', label: 'See the chat alerts' },
       },
       {
         id: 'masking',
         tag: 'AI masking',
         pain: 'Staff spend hours blacking out names, addresses and ID numbers. One missed field is a data leak.',
-        fix: 'AI finds and masks the personal data. Your staff check the result instead of doing the work.',
+        fix: 'AI flags and masks likely personal data. Your staff check and correct the result instead of redacting every page.',
         link: { href: '/work/ai-document-masking/', label: 'See the masking demo' },
       },
       {
         id: 'ai-risk',
         tag: 'Secure AI',
         pain: 'You want AI, but pasting customer data into a public chatbot is a risk you cannot take.',
-        fix: 'AI runs on AWS Bedrock inside your own AWS account. Your documents are not sent to a public chatbot or used for training.',
+        fix: 'AI runs on AWS Bedrock in the AWS region you choose. AWS states that Bedrock does not use your prompts or outputs to train models, or share them with model providers.',
       },
       {
         id: 'kintone',
         tag: 'Business apps',
         pain: 'Your business apps grew one script at a time. Now every change risks breaking something.',
-        fix: 'Rebuilt as one tested, documented package, such as a kintone plugin, installed on every app in one step.',
+        fix: 'Rebuilt as one tested, documented package, such as a kintone plugin. Upload it once, then add it to each app from settings. No copying scripts.',
         link: { href: '/work/kintone-daily-report/', label: 'See a business app package' },
       },
     ],
@@ -82,23 +82,23 @@ export default {
   difference: {
     kicker: 'WHY LENZLAB',
     title: 'The engineer you brief builds it, secures it and documents it.',
-    body: 'No sales layer and no subcontractors. AI-assisted development lets one engineer put a working prototype in front of you quickly. Every system is documented, so your team or another engineer can maintain it.',
+    body: 'You talk directly to the engineer who builds it. AI-assisted development lets one engineer put a working prototype in front of you quickly. Every system is documented, so your team or another engineer can maintain it.',
     points: [
       {
         title: 'A working prototype first',
         body: 'See a slice running on your real data before you commit to the full build. Judge results, not slides.',
       },
       {
-        title: 'Security on every delivery',
-        body: 'Every project ships with a one-page security sheet: who can access what, where secrets live, what is logged.',
+        title: 'Security notes at handover',
+        body: 'Plain-language notes on who can access what, where secrets are stored and what is logged.',
       },
       {
-        title: 'Documented in English and Japanese',
-        body: 'Handover notes your Japanese staff and overseas colleagues can both read. You own the code.',
+        title: 'Documentation in English or Japanese, or both',
+        body: 'Handover notes your Japanese staff and overseas colleagues can read. Code ownership is set out in the contract.',
       },
       {
-        title: 'Low risk to start',
-        body: 'Start with a short first conversation and an audit. See a working prototype before you approve the full build. Scope and quote are agreed in writing first.',
+        title: 'One contact from start to finish',
+        body: 'The person you brief is the person who builds, tests and supports the system. Nothing gets lost in hand-offs.',
       },
     ],
   },
@@ -106,7 +106,7 @@ export default {
   services: {
     kicker: 'SERVICES',
     title: 'Start small. Decide with evidence.',
-    body: 'Start with a first conversation and a short audit, so you never pay to build the wrong thing. Scope and quote are fixed before work begins. Ongoing support is available after handover.',
+    body: 'Start with a first conversation and a short audit, so you see the plan and the cost before paying for a build. Scope and quote are agreed before work begins. Ongoing support is available after handover.',
     items: [
       {
         id: 'audit',
@@ -136,11 +136,11 @@ export default {
         id: 'ai',
         name: 'AI Document Workflow',
         forWho: 'Teams handling personal data or spending hours reading and checking documents.',
-        outcome: 'AI that masks or extracts data inside your AWS account. A person approves every result.',
+        outcome: 'AI that masks or extracts data on AWS Bedrock in the region you choose. A person approves every result.',
         includes: [
           'Personal data masking',
           'Data extraction into your business system',
-          'AWS Bedrock in your own account',
+          'AWS Bedrock in your chosen region',
           'Human review step built in',
         ],
       },
@@ -162,7 +162,7 @@ export default {
   integrations: {
     kicker: 'INTEGRATIONS',
     title: 'Enter it once. Every tool knows.',
-    body: 'Keep the tools your team already uses. I connect them so data moves on its own. Anything with an API or webhook can join.',
+    body: 'Keep the tools your team already uses. I connect them so data moves on its own. Most tools with an API or webhook can join.',
     hub: 'Your business',
     hint: 'Hover over or tap a tool.',
     nodes: [
@@ -182,7 +182,7 @@ export default {
         id: 'bedrock',
         name: 'AWS Bedrock',
         category: 'AI',
-        example: 'Documents masked, summarized or read into fields, inside your own AWS account.',
+        example: 'Documents masked, summarized or read into fields, in the AWS region you choose.',
       },
       {
         id: 'freee',
@@ -236,37 +236,37 @@ export default {
         id: 'aws',
         name: 'AWS',
         category: 'Hosting',
-        example: 'Integrations run on serverless AWS, so there is no server for you to maintain.',
+        example: 'Integrations run on serverless AWS, so there are no servers to patch. Updates are covered by ongoing support.',
       },
     ],
   },
 
   pipeline: {
     kicker: 'SECURE AI',
-    title: 'Customer data is processed inside your own AWS account',
-    body: 'A document enters from your system, is checked and processed inside your own AWS account, and returns for a person to approve.',
+    title: 'Customer data is processed in the AWS region you choose',
+    body: 'A document enters from your system, is checked and processed on AWS in the region you choose, and returns for a person to approve.',
     steps: [
       { id: 'in', label: 'Your system', sub: 'kintone, form or upload', detail: 'A staff member saves a record, submits a form or uploads a file as usual.' },
       { id: 'api', label: 'API Gateway and Lambda', sub: 'Authentication and validation', aws: true, detail: 'The request is authenticated and checked before anything is processed.' },
-      { id: 'bedrock', label: 'AWS Bedrock', sub: 'Your account, your region', aws: true, detail: 'The model runs through AWS Bedrock in your own AWS account and region. AWS does not use Bedrock inputs to train models.' },
+      { id: 'bedrock', label: 'AWS Bedrock', sub: 'Your chosen region', aws: true, detail: 'The model runs through AWS Bedrock in the AWS region you choose. AWS states that Bedrock does not use your prompts or outputs to train models, or share them with model providers.' },
       { id: 'out', label: 'Human review', sub: 'A person approves', detail: 'The result returns to your system. A person approves it before it is used.' },
     ],
     hint: 'Scroll to send a document through.',
     chip: 'Document',
-    boundaryLabel: 'Your AWS account',
+    boundaryLabel: 'AWS (your chosen region)',
   },
 
   security: {
     kicker: 'SECURITY',
-    title: 'Security basics, built in from day one',
-    body: 'One leaked token can expose every app. Checked on every project, explained in plain words at handover.',
+    title: 'Security basics, planned in from the start',
+    body: 'Most leaks start small: a token with too much access, a key left in the code. These are the basics I set up and explain in plain words at handover. The exact setup depends on your tools and AWS account.',
     checks: [
-      'API tokens limited to the apps and actions they need',
-      'Secrets kept server-side, never in browser JavaScript',
-      'Authentication on every endpoint, plus IP restrictions where the service allows',
-      'Inputs validated before they reach a model or database',
-      'Personal data masked before it is logged or shared',
-      'Handover notes on what runs where and who has access',
+      'API tokens and AWS roles limited to the apps and actions they need',
+      'Secrets kept in AWS Secrets Manager, not in code or browser JavaScript',
+      'Incoming requests checked with a token, signature or IP allowlist, depending on what each service supports',
+      'Personal data kept out of logs, and out of AI prompts when the task does not need it',
+      'AI processing in the AWS region you choose, with access logs of who called what',
+      'A person reviews AI results before they are used',
     ],
   },
 
@@ -277,31 +277,31 @@ export default {
       { title: 'Understand the task', body: 'Who does it, how often and where the data lives. The work comes first, not the technology.' },
       { title: 'Prototype on your data', body: 'A working slice, usually on one workflow. Judge it early and change course cheaply.' },
       { title: 'Build and secure', body: 'The full build, with access, secrets and personal data handled before anything goes live.' },
-      { title: 'Hand over', body: 'Documentation in two languages, a walkthrough and code you own. Ongoing support available.' },
+      { title: 'Hand over', body: 'Documentation in English or Japanese, or both, and a walkthrough. Code ownership is set out in the contract. Ongoing support available.' },
     ],
   },
 
   work: {
-    kicker: 'DEMOS',
-    title: 'See it working before you commit',
-    body: 'Each demo has its own page. Your version is built around your tools and your data.',
+    kicker: 'EXAMPLES',
+    title: 'What these systems look like',
+    body: 'Each example has its own page. Your version is built around your tools and your data.',
     labels: {
       problem: 'Common problem',
       built: 'What this does',
       outcome: 'What changes',
-      view: 'View demo',
+      view: 'View details',
       comingSoon: 'Demo coming soon',
       demoNote: 'A full walkthrough of this system is being prepared for this page.',
-      back: 'Back to all demos',
+      back: 'Back to all examples',
     },
     items: [
       {
         slug: 'ai-document-masking',
         title: 'AI document masking',
         problem: 'Documents are redacted by hand before they leave the team. It is slow, and one missed field is a leak.',
-        built: 'An AWS Bedrock workflow detects names, addresses, phone and ID numbers, masks them and sends the result for review.',
+        built: 'An AWS Bedrock workflow flags likely names, addresses, phone and ID numbers, masks them and sends the result for review.',
         outcome: 'Staff review and approve masked documents instead of redacting every page.',
-        tags: ['AWS Bedrock', 'Security', 'PII masking'],
+        tags: ['AWS Bedrock', 'PII masking', 'Human review'],
       },
       {
         slug: 'kintone-backlog-sync',
@@ -315,7 +315,7 @@ export default {
         slug: 'kintone-chat-alerts',
         title: 'Instant alerts in your team chat',
         problem: 'Important changes are missed because nobody watches every system all day.',
-        built: 'Rules post a short message to Chatwork, Slack or LINE WORKS when a chosen field changes or a deadline nears.',
+        built: 'Rules can post a short message to Chatwork, Slack or LINE WORKS when a chosen field changes or a deadline nears.',
         outcome: 'The right person hears about a change when it happens, in the chat tool they already use.',
         tags: ['Chatwork', 'Slack', 'LINE WORKS'],
       },
@@ -343,7 +343,7 @@ export default {
     title: 'What task is eating your team’s week?',
     body: 'Describe it in a sentence or two. You get an honest answer on how to fix it, and whether it is worth fixing.',
     cta: 'Send a message',
-    languages: 'English and Japanese (Tagalog also available)',
+    languages: 'English and Japanese',
   },
 
   masking: {
