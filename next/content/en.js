@@ -1,8 +1,9 @@
 // English page content.
 export default {
   meta: {
+    locale: 'en_US',
     themeToggle: 'Switch light or dark theme',
-    title: 'LenzLab | System integration, business apps and secure AI',
+    title: 'LenzLab | System integration, workflow automation and secure AI in Japan',
     description:
       'Connect Backlog, kintone, chat, accounting, your website and AI so data moves on its own. Built, secured and documented by one engineer in Japan.',
   },

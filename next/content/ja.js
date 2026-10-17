@@ -1,8 +1,9 @@
 // Japanese page content. Same shape as en.js.
 export default {
   meta: {
+    locale: 'ja_JP',
     themeToggle: 'ライト／ダーク表示を切り替える',
-    title: 'LenzLab | システム連携・業務アプリ開発・セキュアなAI活用',
+    title: 'システム連携・業務自動化・セキュアなAI活用 | LenzLab',
     description:
       'Backlog、kintone、チャット、会計、Webサイト、AIをつなぎ、データが自動で流れる仕組みをつくります。設計から構築、セキュリティ対策、ドキュメント作成まで、一人のエンジニアが責任を持って担当します。',
   },

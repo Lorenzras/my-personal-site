@@ -12,7 +12,17 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { lang, slug } = await params;
   const item = getContent(lang).work.items.find((w) => w.slug === slug);
-  return { title: `${item?.title} · ${site.brand}`, description: item?.problem, alternates: { canonical: `/${lang}/work/${slug}/` } };
+  const title = `${item?.title} · ${site.brand}`;
+  const description = `${item?.problem} ${item?.built}`;
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${lang}/work/${slug}/`,
+      languages: { ...Object.fromEntries(languages.map((l) => [l, `/${l}/work/${slug}/`])), 'x-default': `/en/work/${slug}/` },
+    },
+    openGraph: { type: 'article', siteName: site.brand, title, description, url: `/${lang}/work/${slug}/`, images: [{ url: '/og.png', width: 1200, height: 630 }] },
+  };
 }
 
 // One page per case study. The full demo (video or motion) gets added here

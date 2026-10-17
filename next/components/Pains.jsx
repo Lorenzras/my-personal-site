@@ -153,6 +153,13 @@ function PinnedPains({ t, lang }) {
                 <Card item={item} t={t} lang={lang} fixed={fixed} onState={(f) => jump(active, f ? AT_FIXED : AT_TODAY)} />
               </motion.article>
             </AnimatePresence>
+            {/* The other pains stay in the page (hidden) so their text is indexed. */}
+            {t.items.filter((p) => p.id !== item.id).map((p) => (
+              <article key={p.id} hidden>
+                <p>{p.pain}</p>
+                <p>{p.fix}</p>
+              </article>
+            ))}
           </div>
         </div>
       </div>
