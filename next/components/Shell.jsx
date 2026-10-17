@@ -1,23 +1,35 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { MotionConfig, motion, useScroll, useSpring } from 'motion/react';
-import { profile } from '@/content/site';
+import { languageNames, languages, site } from '@/content';
 
 // Wraps every page: honours the OS "reduce motion" setting and draws the
-// scroll progress bar and top nav.
-export default function Shell({ children }) {
+// scroll progress bar, top nav and language switch.
+export default function Shell({ lang, nav, children }) {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
+  const path = usePathname() || `/${lang}/`;
+  const rest = path.replace(/^\/[a-z]{2}(?=\/|$)/, '');
   return (
     <MotionConfig reducedMotion="user">
       <motion.div className="progress" style={{ scaleX }} />
       <nav className="nav">
-        <a href="/" className="logo">LENZ<span>LAB</span></a>
+        <a href={`/${lang}/`} className="logo">LENZ<span>LAB</span></a>
         <div className="nav-links">
-          <a href="/#pains">Problems</a>
-          <a href="/#services">Services</a>
-          <a href="/#work">Work</a>
-          <a href={`mailto:${profile.email}`} className="nav-cta">Contact</a>
+          <a href={`/${lang}/#problems`}>{nav.problems}</a>
+          <a href={`/${lang}/#services`}>{nav.services}</a>
+          <a href={`/${lang}/#integrations`}>{nav.integrations}</a>
+          <a href={`/${lang}/#work`}>{nav.work}</a>
+          <span className="lang-switch">
+            {languages.map((l) => (
+              <a key={l} href={`/${l}${rest || '/'}`} hrefLang={l} lang={l} aria-current={l === lang ? 'true' : undefined}>
+                <span className="full">{languageNames[l]}</span>
+                <span className="short">{l.toUpperCase()}</span>
+              </a>
+            ))}
+          </span>
+          <a href={`mailto:${site.email}`} className="nav-cta">{nav.contact}</a>
         </div>
       </nav>
       {children}
@@ -25,7 +37,8 @@ export default function Shell({ children }) {
   );
 }
 
-// Fades and lifts its children into view once.
+// Fades and lifts its children in when they enter the viewport, and back out
+// when they leave, so scrolling up replays the scene in reverse.
 export function Reveal({ children, delay = 0, y = 32, className, as = 'div' }) {
   const M = motion[as];
   return (
@@ -33,8 +46,8 @@ export function Reveal({ children, delay = 0, y = 32, className, as = 'div' }) {
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-10% 0px' }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ amount: 0.2 }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </M>

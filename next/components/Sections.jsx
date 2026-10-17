@@ -1,55 +1,32 @@
 'use client';
 
-import { Fragment, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { contact, ideas, pipeline, process, profile, projects, securityChecks, services } from '@/content/site';
-import MaskPreview from './MaskPreview';
+import { useRef, useState } from 'react';
+import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
+import { site } from '@/content';
 import { Reveal, SectionHead } from './Shell';
 
 const EASE = [0.22, 1, 0.36, 1];
-const stagger = (i) => ({ duration: 0.6, delay: i * 0.08, ease: EASE });
+const stagger = (i) => ({ duration: 0.55, delay: i * 0.07, ease: EASE });
+// In-view animations replay in reverse when scrolled back out.
+const VIEW = { amount: 0.25 };
 
-export function MaskingTeaser() {
+export function Difference({ t }) {
   return (
-    <section className="block split">
-      <div>
-        <SectionHead
-          kicker="AI INTEGRATION · 個人情報マスキング"
-          title="Personal data, masked before it leaves."
-          body="Names, addresses, phone numbers and My Number are found by AI and blacked out automatically. A person checks the result, so nothing is shared by mistake."
-        />
-        <Reveal delay={0.1}>
-          <a className="btn ghost" href="/masking/">Open the masking demo →</a>
-        </Reveal>
-      </div>
-      <Reveal delay={0.15}>
-        <MaskPreview />
-      </Reveal>
-    </section>
-  );
-}
-
-export function Services() {
-  return (
-    <section id="services" className="block">
-      <SectionHead kicker="WHAT I BUILD · サービス" title="Four things, done properly." />
-      <div className="services">
-        {services.map((s, i) => (
+    <section className="block">
+      <SectionHead kicker={t.kicker} title={t.title} body={t.body} />
+      <div className="diff">
+        {t.points.map((p, i) => (
           <motion.article
-            key={s.id}
-            className={`service service-${s.id}`}
+            key={p.title}
+            className="diff-item"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -6 }}
-            viewport={{ once: true, margin: '-10% 0px' }}
+            viewport={VIEW}
             transition={stagger(i)}
           >
-            <p className="jp">{s.jp}</p>
-            <h3>{s.title}</h3>
-            <p className="muted">{s.body}</p>
-            <ul className="points">
-              {s.points.map((p) => <li key={p}>{p}</li>)}
-            </ul>
+            <span className="diff-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{p.title}</h3>
+            <p className="muted">{p.body}</p>
           </motion.article>
         ))}
       </div>
@@ -57,196 +34,168 @@ export function Services() {
   );
 }
 
-const fadeIn = { hidden: { opacity: 0 }, show: { opacity: 1 } };
-const popIn = { hidden: { opacity: 0, y: 20, scale: 0.9 }, show: { opacity: 1, y: 0, scale: 1, transition: { ease: EASE, duration: 0.6 } } };
-
-function Link({ i }) {
+// Pick an offer on the left; its details animate in on the right.
+export function Services({ t }) {
+  const [active, setActive] = useState(0);
+  const s = t.items[active];
   return (
-    <motion.div className="link" variants={fadeIn}>
-      <span className="packet" style={{ animationDelay: `${i * 0.4}s` }} />
-    </motion.div>
-  );
-}
-
-function Node({ step }) {
-  return (
-    <motion.div className={`node node-${step.id}`} variants={popIn}>
-      <strong>{step.label}</strong>
-      <span>{step.sub}</span>
-    </motion.div>
-  );
-}
-
-// kintone → Lambda → Bedrock → kintone, with a packet travelling along each
-// link. Consecutive `aws` steps are grouped inside a dashed account boundary.
-export function Pipeline() {
-  const groups = [];
-  pipeline.steps.forEach((s) => {
-    const last = groups[groups.length - 1];
-    if (s.aws && last?.aws) last.steps.push(s);
-    else groups.push({ aws: !!s.aws, steps: [s] });
-  });
-  let n = 0;
-  return (
-    <section className="block">
-      <SectionHead kicker="AWS BEDROCK · 仕組み" title={pipeline.title} body={pipeline.body} />
-      <motion.div
-        className="pipeline"
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: '-15% 0px' }}
-        variants={{ show: { transition: { staggerChildren: 0.3 } } }}
-      >
-        {groups.map((g, gi) => {
-          const nodes = g.steps.map((s, si) => (
-            <Fragment key={s.id}>
-              {si > 0 && <Link i={n++} />}
-              <Node step={s} />
-            </Fragment>
-          ));
-          return (
-            <Fragment key={gi}>
-              {gi > 0 && <Link i={n++} />}
-              {g.aws ? (
-                <motion.div className="aws-boundary" variants={{ ...fadeIn, show: { opacity: 1, transition: { staggerChildren: 0.3 } } }}>
-                  <span className="aws-label">🔒 Your AWS account</span>
-                  {nodes}
-                </motion.div>
-              ) : nodes}
-            </Fragment>
-          );
-        })}
-      </motion.div>
+    <section id="services" className="block">
+      <SectionHead kicker={t.kicker} title={t.title} body={t.body} />
+      <div className="offers">
+        <div className="offer-list" role="tablist">
+          {t.items.map((it, i) => (
+            <motion.button
+              key={it.id}
+              type="button"
+              role="tab"
+              aria-selected={i === active}
+              className={`offer-tab${i === active ? ' on' : ''}`}
+              onClick={() => setActive(i)}
+              onMouseEnter={() => setActive(i)}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={VIEW}
+              transition={stagger(i)}
+            >
+              {i === active && <motion.span layoutId="offer-bg" className="offer-bg" transition={{ type: 'spring', stiffness: 400, damping: 35 }} />}
+              <strong>{it.name}</strong>
+              <span>{it.forWho}</span>
+            </motion.button>
+          ))}
+        </div>
+        <div className="offer-panel" role="tabpanel">
+          <AnimatePresence mode="wait">
+            <motion.div key={s.id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.25 }}>
+              <h3>{s.name}</h3>
+              <p className="offer-outcome">{s.outcome}</p>
+              <ul className="offer-includes">
+                {s.includes.map((x, i) => (
+                  <motion.li key={x} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i + 0.1 }}>{x}</motion.li>
+                ))}
+              </ul>
+              {s.price && (
+                <p className="offer-price">
+                  {s.price}
+                  {s.confirm && <span className="badge" title="Placeholder price. Confirm in content/en.js">TBC</span>}
+                </p>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
     </section>
   );
 }
 
-export function Security() {
+function Check({ text, progress, at }) {
+  const pathLength = useTransform(progress, [at, at + 0.08], [0, 1]);
+  const opacity = useTransform(progress, [at - 0.06, at + 0.04], [0.35, 1]);
+  return (
+    <motion.li style={{ opacity }}>
+      <svg viewBox="0 0 24 24" aria-hidden><motion.path d="M5 12.5l4.5 4.5L19 7.5" style={{ pathLength }} /></svg>
+      {text}
+    </motion.li>
+  );
+}
+
+// Each item is ticked as it scrolls up the screen, and unticked on the way back.
+export function Security({ t }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.55'] });
+  const n = t.checks.length;
   return (
     <section className="block split">
-      <SectionHead
-        kicker="SECURITY BASICS · 基本対策"
-        title="The boring basics, never skipped."
-        body="Most incidents don’t come from clever attacks. They come from a leaked token or an app with too much access. Every project ships with these checked."
-      />
-      <ul className="checks">
-        {securityChecks.map((c, i) => (
-          <motion.li
-            key={c}
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-10% 0px' }}
-            transition={stagger(i)}
-          >
-            <svg viewBox="0 0 24 24" aria-hidden>
-              <motion.path
-                d="M5 12.5l4.5 4.5L19 7.5"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 + i * 0.08, duration: 0.4 }}
-              />
-            </svg>
-            {c}
-          </motion.li>
-        ))}
+      <SectionHead kicker={t.kicker} title={t.title} body={t.body} />
+      <ul ref={ref} className="checks">
+        {t.checks.map((c, i) => <Check key={c} text={c} progress={scrollYProgress} at={(i / n) * 0.85} />)}
       </ul>
     </section>
   );
 }
 
-export function Ideas() {
+function Step({ step, i, n, progress }) {
+  const at = i / n;
+  const lit = useTransform(progress, [at, at + 0.05], [0, 1]);
+  const borderColor = useTransform(lit, [0, 1], ['rgba(255,255,255,0.15)', 'rgba(79,209,197,1)']);
+  const opacity = useTransform(lit, [0, 1], [0.4, 1]);
   return (
-    <section className="block">
-      <SectionHead
-        kicker="MORE INTEGRATIONS · 連携アイデア"
-        title="Other chores AI can take off your plate."
-        body="Built on the same Bedrock + kintone foundation. Ask about any of these."
-      />
-      <div className="ideas">
-        {ideas.map((idea, i) => (
-          <motion.article
-            key={idea.title}
-            className="idea"
-            initial={{ opacity: 0, scale: 0.94 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-10% 0px' }}
-            transition={stagger(i)}
-          >
-            {idea.suggested && <span className="badge" title="Proposed idea. Confirm or delete in content/site.js">Proposed</span>}
-            <h3>{idea.title}</h3>
-            <p className="muted">{idea.body}</p>
-          </motion.article>
-        ))}
-      </div>
-    </section>
+    <motion.li style={{ opacity }}>
+      <motion.span className="step-dot" style={{ borderColor }}>{i + 1}</motion.span>
+      <h3>{step.title}</h3>
+      <p className="muted">{step.body}</p>
+    </motion.li>
   );
 }
 
-// A vertical timeline whose line fills as you scroll through it.
-export function Process() {
+// A vertical timeline whose line fills, and whose steps light up, as you scroll.
+export function Process({ t }) {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.7', 'end 0.6'] });
-  const fill = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.7', 'end 0.5'] });
   return (
     <section className="block">
-      <SectionHead kicker="HOW WE WORK · 進め方" title="Small steps, visible early." />
+      <SectionHead kicker={t.kicker} title={t.title} />
       <ol ref={ref} className="process">
-        <motion.span className="process-line" style={{ scaleY: fill }} />
-        {process.map((p, i) => (
-          <Reveal as="li" key={p.title} delay={0.05} y={20}>
-            <span className="step-dot">{i + 1}</span>
-            <h3>{p.title}</h3>
-            <p className="muted">{p.body}</p>
-          </Reveal>
-        ))}
+        <motion.span className="process-line" style={{ scaleY: scrollYProgress }} />
+        {t.steps.map((s, i) => <Step key={s.title} step={s} i={i} n={t.steps.length} progress={scrollYProgress} />)}
       </ol>
     </section>
   );
 }
 
-export function Projects() {
+// Cards tilt toward the pointer.
+function WorkCard({ item, href, label, i }) {
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 200, damping: 20 });
+  const sry = useSpring(ry, { stiffness: 200, damping: 20 });
+  const onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    ry.set(((e.clientX - r.left) / r.width - 0.5) * 10);
+    rx.set(-((e.clientY - r.top) / r.height - 0.5) * 10);
+  };
+  const reset = () => { rx.set(0); ry.set(0); };
+  return (
+    <motion.a
+      href={href}
+      className="project"
+      style={{ rotateX: srx, rotateY: sry, transformPerspective: 800 }}
+      onPointerMove={onMove}
+      onPointerLeave={reset}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={VIEW}
+      transition={stagger(i)}
+    >
+      <h3>{item.title}</h3>
+      <p className="muted">{item.problem}</p>
+      <ul className="tags">{item.tags.map((x) => <li key={x}>{x}</li>)}</ul>
+      <span className="text-link">{label} →</span>
+    </motion.a>
+  );
+}
+
+export function Work({ t, lang }) {
   return (
     <section id="work" className="block">
-      <SectionHead kicker="WORK · 実績" title="Things I’ve built." />
+      <SectionHead kicker={t.kicker} title={t.title} body={t.body} />
       <div className="projects">
-        {projects.map((p, i) => {
-          const Tag = p.link ? motion.a : motion.div;
-          return (
-            <Tag
-              key={p.title}
-              href={p.link}
-              className={`project${p.featured ? ' featured' : ''}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileHover={{ y: -4 }}
-              viewport={{ once: true, margin: '-10% 0px' }}
-              transition={stagger(i)}
-            >
-              <h3>{p.title}</h3>
-              <p className="muted">{p.description}</p>
-              <ul className="tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-              {p.link && <span className="text-link">{p.linkLabel || 'GitHub'} →</span>}
-            </Tag>
-          );
-        })}
+        {t.items.map((w, i) => <WorkCard key={w.slug} item={w} href={`/${lang}/work/${w.slug}/`} label={t.labels.view} i={i} />)}
       </div>
     </section>
   );
 }
 
-export function Contact() {
+export function Contact({ t }) {
   return (
     <section id="contact" className="block contact">
       <Reveal>
-        <p className="kicker">{contact.kicker}</p>
-        <h2>{contact.title}</h2>
-        <p className="lead">{contact.body}</p>
+        <p className="kicker">{t.kicker}</p>
+        <h2>{t.title}</h2>
+        <p className="lead">{t.body}</p>
         <div className="actions center">
-          <a className="btn" href={`mailto:${profile.email}`}>{profile.email}</a>
-          <a className="btn ghost" href={profile.github}>GitHub</a>
+          <a className="btn" href={`mailto:${site.email}`}>{t.cta}</a>
         </div>
-        <p className="meta">{profile.languages} · {profile.location}</p>
+        <p className="meta">{site.email} · {t.languages}</p>
       </Reveal>
     </section>
   );

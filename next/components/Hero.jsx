@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
-import { profile } from '@/content/site';
+import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
+import { site } from '@/content';
 
 // Flowing lines in the background: data moving from left to right.
 const LINES = Array.from({ length: 7 }, (_, i) => {
@@ -11,78 +11,104 @@ const LINES = Array.from({ length: 7 }, (_, i) => {
   return `M -50 ${y} C 300 ${y - 120 + a}, 600 ${y + 120 - a}, 900 ${y} S 1300 ${y - 80}, 1500 ${y + a}`;
 });
 
-function CyclingPain() {
+// "Stop ____" cycles through client chores; the dots let visitors pick one.
+function CyclingPain({ pains, suffix }) {
   const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
   useEffect(() => {
-    const t = setInterval(() => setI((n) => (n + 1) % profile.painVerbs.length), 2600);
+    if (paused) return;
+    const t = setInterval(() => setI((n) => (n + 1) % pains.length), 2800);
     return () => clearInterval(t);
-  }, []);
+  }, [paused, pains.length]);
   return (
-    <span className="cycle">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={i}
-          className="cycle-word"
-          initial={{ y: '0.6em', opacity: 0, filter: 'blur(6px)' }}
-          animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-          exit={{ y: '-0.6em', opacity: 0, filter: 'blur(6px)' }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        >
+    <>
+      <span className="cycle">
+        <AnimatePresence mode="wait">
           <motion.span
-            className="strike"
-            initial={{ backgroundSize: '0% 0.08em' }}
-            animate={{ backgroundSize: '100% 0.08em' }}
-            transition={{ delay: 1.3, duration: 0.6, ease: 'easeInOut' }}
+            key={i}
+            className="cycle-word"
+            initial={{ opacity: 0, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, filter: 'blur(8px)' }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
-            {profile.painVerbs[i]}
+            <motion.span
+              className="strike"
+              initial={{ backgroundSize: '0% 0.08em' }}
+              animate={{ backgroundSize: '100% 0.08em' }}
+              transition={{ delay: 1.2, duration: 0.6, ease: 'easeInOut' }}
+            >
+              {pains[i]}
+            </motion.span>
           </motion.span>
-        </motion.span>
-      </AnimatePresence>
-    </span>
+        </AnimatePresence>
+        {suffix && <span className="cycle-suffix">{suffix}</span>}
+      </span>
+      <span className="cycle-dots" onMouseLeave={() => setPaused(false)}>
+        {pains.map((p, n) => (
+          <button
+            key={p}
+            type="button"
+            aria-label={p}
+            className={n === i ? 'on' : ''}
+            onMouseEnter={() => { setPaused(true); setI(n); }}
+            onClick={() => { setPaused(true); setI(n); }}
+          />
+        ))}
+      </span>
+    </>
   );
 }
 
-export default function Hero() {
+export default function Hero({ t, lang }) {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 600], [0, 140]);
   const fade = useTransform(scrollY, [0, 500], [1, 0]);
+  // The background lines lean toward the pointer.
+  const px = useMotionValue(0);
+  const py = useMotionValue(0);
+  const sx = useSpring(px, { stiffness: 40, damping: 15 });
+  const sy = useSpring(py, { stiffness: 40, damping: 15 });
+  const onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    px.set(((e.clientX - r.left) / r.width - 0.5) * 40);
+    py.set(((e.clientY - r.top) / r.height - 0.5) * 30);
+  };
 
   return (
-    <header className="hero">
-      <motion.svg className="flow" viewBox="0 0 1400 600" preserveAspectRatio="none" style={{ y }} aria-hidden>
-        {LINES.map((d, i) => (
-          <g key={i}>
-            <motion.path
-              d={d}
-              className="flow-line"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 2.2, delay: 0.15 * i, ease: 'easeInOut' }}
-            />
-            <path d={d} className="flow-dot" style={{ animationDelay: `${-i * 0.9}s` }} pathLength="100" />
-          </g>
-        ))}
-      </motion.svg>
+    <header className="hero" onPointerMove={onMove}>
+      <motion.div className="flow-wrap" style={{ y }}>
+        <motion.svg className="flow" viewBox="0 0 1400 600" preserveAspectRatio="none" style={{ x: sx, y: sy }} aria-hidden>
+          {LINES.map((d, i) => (
+            <g key={i}>
+              <motion.path
+                d={d}
+                className="flow-line"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 2.2, delay: 0.15 * i, ease: 'easeInOut' }}
+              />
+              <path d={d} className="flow-dot" style={{ animationDelay: `${-i * 0.9}s` }} pathLength="100" />
+            </g>
+          ))}
+        </motion.svg>
+      </motion.div>
 
       <motion.div className="hero-inner" style={{ opacity: fade }}>
         <motion.p className="kicker" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-          {profile.kicker}
+          {t.kicker}
         </motion.p>
         <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-          Stop <CyclingPain />
-          <br />
-          <span className="accent">Let it run itself.</span>
+          {t.prefix} <CyclingPain pains={t.pains} suffix={t.suffix} />
+          <span className="accent">{t.resolve}</span>
         </motion.h1>
         <motion.p className="lead" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.7 }}>
-          {profile.intro}
+          {t.intro}
         </motion.p>
         <motion.div className="actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
-          <a className="btn" href="#pains">Find your pain point</a>
-          <a className="btn ghost" href={`mailto:${profile.email}`}>{profile.email}</a>
+          <a className="btn" href={`mailto:${site.email}`}>{t.ctaPrimary}</a>
+          <a className="btn ghost" href={`/${lang}/#work`}>{t.ctaSecondary}</a>
         </motion.div>
-        <motion.p className="meta" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
-          {profile.name} · {profile.role} · {profile.location}
-        </motion.p>
       </motion.div>
       <motion.div className="scroll-cue" style={{ opacity: fade }} aria-hidden>
         <span />
