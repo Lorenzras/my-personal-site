@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
 import { site } from '@/content';
+import { HeroVisual } from './illustrations';
 
 // Flowing lines in the background: data moving from left to right.
 const LINES = Array.from({ length: 7 }, (_, i) => {
@@ -113,6 +114,9 @@ export default function Hero({ t, lang }) {
           <a className="btn" href={`mailto:${site.email}`}>{t.ctaPrimary}</a>
           <a className="btn ghost" href={`/${lang}/#work`}>{t.ctaSecondary}</a>
         </motion.div>
+      </motion.div>
+      <motion.div className="hero-visual" style={{ opacity: fade }} initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
+        <HeroVisual />
       </motion.div>
       <motion.div className="scroll-cue" style={{ opacity: fade }} aria-hidden>
         <span />

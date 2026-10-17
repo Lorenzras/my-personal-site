@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
 import { site } from '@/content';
 import { Reveal, SectionHead } from './Shell';
+import { DiffIcon, OfferIcon, ProcessIcon, WorkCover } from './illustrations';
 
 const EASE = [0.22, 1, 0.36, 1];
 const stagger = (i) => ({ duration: 0.55, delay: i * 0.07, ease: EASE });
@@ -24,7 +25,7 @@ export function Difference({ t }) {
             viewport={VIEW}
             transition={stagger(i)}
           >
-            <span className="diff-num">{String(i + 1).padStart(2, '0')}</span>
+            <span className="diff-icon"><DiffIcon index={i} /></span>
             <h3>{p.title}</h3>
             <p className="muted">{p.body}</p>
           </motion.article>
@@ -37,6 +38,7 @@ export function Difference({ t }) {
 function OfferDetail({ s }) {
   return (
     <>
+      <span className="offer-icon"><OfferIcon id={s.id} /></span>
       <h3>{s.name}</h3>
       <p className="offer-outcome">{s.outcome}</p>
       <ul className="offer-includes">
@@ -73,6 +75,7 @@ export function Services({ t }) {
                 transition={stagger(i)}
               >
                 {i === active && <motion.span layoutId="offer-bg" className="offer-bg" transition={{ type: 'spring', stiffness: 400, damping: 35 }} />}
+                <span className="offer-tab-icon"><OfferIcon id={it.id} /></span>
                 <strong>{it.name}</strong>
                 <span>{it.forWho}</span>
               </motion.button>
@@ -134,12 +137,14 @@ export function Security({ t }) {
 function Step({ step, i, n, progress }) {
   const at = i / n;
   const lit = useTransform(progress, [at, at + 0.05], [0, 1]);
-  const borderColor = useTransform(lit, [0, 1], ['rgba(255,255,255,0.15)', 'rgba(79,209,197,1)']);
   const opacity = useTransform(lit, [0, 1], [0.4, 1]);
   return (
     <motion.li style={{ opacity }}>
-      <motion.span className="step-dot" style={{ borderColor }}>{i + 1}</motion.span>
-      <h3>{step.title}</h3>
+      <span className="step-dot">{i + 1}<motion.span className="step-ring" style={{ opacity: lit }} /></span>
+      <div className="step-head">
+        <span className="step-icon"><ProcessIcon index={i} /></span>
+        <h3>{step.title}</h3>
+      </div>
       <p className="muted">{step.body}</p>
     </motion.li>
   );
@@ -184,6 +189,7 @@ function WorkCard({ item, href, label, i }) {
       viewport={VIEW}
       transition={stagger(i)}
     >
+      <div className="project-cover"><WorkCover slug={item.slug} /></div>
       <h3>{item.title}</h3>
       <p className="muted">{item.problem}</p>
       <ul className="tags">{item.tags.map((x) => <li key={x}>{x}</li>)}</ul>

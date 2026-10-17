@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import MaskPreview from '@/components/MaskPreview';
 import { Reveal } from '@/components/Shell';
+import { WorkCover } from '@/components/illustrations';
 import { dictionaries, getContent, languages, site } from '@/content';
 
 export const dynamicParams = false;
@@ -37,11 +38,9 @@ export default async function WorkPage({ params }) {
           </Reveal>
         ))}
       </div>
-      {slug.includes('mask') && (
-        <Reveal className="page-demo">
-          <MaskPreview t={t.masking} interactive />
-        </Reveal>
-      )}
+      <Reveal className="page-demo">
+        {slug.includes('mask') ? <MaskPreview t={t.masking} interactive /> : <div className="page-cover"><WorkCover slug={slug} /></div>}
+      </Reveal>
       <Reveal className="coming">
         <span className="badge">{labels.comingSoon}</span>
         <p className="muted">{labels.demoNote}</p>

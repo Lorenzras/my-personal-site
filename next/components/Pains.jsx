@@ -3,10 +3,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { SectionHead } from './Shell';
+import { PainArt } from './illustrations';
 
 function Card({ item, t, lang, strike, painOpacity, fixOpacity, fixY }) {
   return (
     <>
+      <div className="pain-art"><PainArt id={item.id} /></div>
       <motion.p className="pain-text" style={{ opacity: painOpacity }}>
         <span className="pain-label">{t.painLabel}</span>
         <motion.span className="pain-strike" style={{ backgroundSize: strike }}>{item.pain}</motion.span>
