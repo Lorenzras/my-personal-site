@@ -4,11 +4,11 @@ import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Reveal, SectionHead } from './Shell';
 
-function MaskedValue({ value, progress, from, revealed, onToggle, labels }) {
+function MaskedValue({ value, progress, from, revealed, onToggle, labels, pulse }) {
   const scaleX = useTransform(progress, [from, from + 0.12], [0, 1]);
   const ring = useTransform(progress, [from - 0.08, from, from + 0.12], [0, 1, 0]);
   return (
-    <button type="button" className="doc-value masked" onClick={onToggle} aria-pressed={revealed} title={revealed ? labels.hide : labels.reveal}>
+    <button type="button" className={`doc-value masked${pulse ? ' pulse' : ''}`} onClick={onToggle} aria-pressed={revealed} title={revealed ? labels.hide : labels.reveal}>
       {value}
       <motion.span className="detect" style={{ opacity: ring }} />
       <motion.span className="mask" style={{ scaleX }} animate={{ opacity: revealed ? 0 : 1 }}>
@@ -52,6 +52,7 @@ export default function MaskPreview({ t }) {
                 from={from}
                 labels={t.labels}
                 revealed={!!revealed[label]}
+                pulse={k === 1 && !Object.keys(revealed).length}
                 onToggle={() => setRevealed((r) => ({ ...r, [label]: !r[label] }))}
               />
             ) : (

@@ -34,7 +34,22 @@ export function Difference({ t }) {
   );
 }
 
-// Pick an offer on the left; its details animate in on the right.
+function OfferDetail({ s }) {
+  return (
+    <>
+      <h3>{s.name}</h3>
+      <p className="offer-outcome">{s.outcome}</p>
+      <ul className="offer-includes">
+        {s.includes.map((x, i) => (
+          <motion.li key={x} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i + 0.1 }}>{x}</motion.li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+// Pick an offer on the left; its details animate in on the right (or open
+// under it on phones).
 export function Services({ t }) {
   const [active, setActive] = useState(0);
   const s = t.items[active];
@@ -44,41 +59,44 @@ export function Services({ t }) {
       <div className="offers">
         <div className="offer-list" role="tablist">
           {t.items.map((it, i) => (
-            <motion.button
-              key={it.id}
-              type="button"
-              role="tab"
-              aria-selected={i === active}
-              className={`offer-tab${i === active ? ' on' : ''}`}
-              onClick={() => setActive(i)}
-              onMouseEnter={() => setActive(i)}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={VIEW}
-              transition={stagger(i)}
-            >
-              {i === active && <motion.span layoutId="offer-bg" className="offer-bg" transition={{ type: 'spring', stiffness: 400, damping: 35 }} />}
-              <strong>{it.name}</strong>
-              <span>{it.forWho}</span>
-            </motion.button>
+            <div key={it.id} className="offer-item">
+              <motion.button
+                type="button"
+                role="tab"
+                aria-selected={i === active}
+                className={`offer-tab${i === active ? ' on' : ''}`}
+                aria-controls={`offer-${it.id}`}
+                onClick={() => setActive(i)}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={VIEW}
+                transition={stagger(i)}
+              >
+                {i === active && <motion.span layoutId="offer-bg" className="offer-bg" transition={{ type: 'spring', stiffness: 400, damping: 35 }} />}
+                <strong>{it.name}</strong>
+                <span>{it.forWho}</span>
+              </motion.button>
+              {/* Phones: the details open right under the tapped offer. */}
+              <AnimatePresence initial={false}>
+                {i === active && (
+                  <motion.div
+                    className="offer-inline"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <OfferDetail s={it} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           ))}
         </div>
         <div className="offer-panel" role="tabpanel">
           <AnimatePresence mode="wait">
-            <motion.div key={s.id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.25 }}>
-              <h3>{s.name}</h3>
-              <p className="offer-outcome">{s.outcome}</p>
-              <ul className="offer-includes">
-                {s.includes.map((x, i) => (
-                  <motion.li key={x} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i + 0.1 }}>{x}</motion.li>
-                ))}
-              </ul>
-              {s.price && (
-                <p className="offer-price">
-                  {s.price}
-                  {s.confirm && <span className="badge" title="Placeholder price. Confirm in content/en.js">TBC</span>}
-                </p>
-              )}
+            <motion.div key={s.id} id={`offer-${s.id}`} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.25 }}>
+              <OfferDetail s={s} />
             </motion.div>
           </AnimatePresence>
         </div>
@@ -157,7 +175,7 @@ function WorkCard({ item, href, label, i }) {
   return (
     <motion.a
       href={href}
-      className="project"
+      className={`project${i === 0 ? ' featured' : ''}`}
       style={{ rotateX: srx, rotateY: sry, transformPerspective: 800 }}
       onPointerMove={onMove}
       onPointerLeave={reset}

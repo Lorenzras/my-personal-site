@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
 import { site } from '@/content';
 
 // Flowing lines in the background: data moving from left to right.
@@ -12,14 +12,18 @@ const LINES = Array.from({ length: 7 }, (_, i) => {
 });
 
 // "Stop ____" cycles through client chores; the dots let visitors pick one.
-function CyclingPain({ pains, suffix }) {
+function CyclingPain({ pains, suffix, label }) {
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
+  // The first phrase is readable straight away; only later ones blur in.
+  const first = useRef(true);
+  useEffect(() => { if (i !== 0) first.current = false; }, [i]);
+  const reduce = useReducedMotion();
   useEffect(() => {
-    if (paused) return;
-    const t = setInterval(() => setI((n) => (n + 1) % pains.length), 2800);
+    if (paused || reduce) return;
+    const t = setInterval(() => setI((n) => (n + 1) % pains.length), 3600);
     return () => clearInterval(t);
-  }, [paused, pains.length]);
+  }, [paused, reduce, pains.length]);
   return (
     <>
       <span className="cycle">
@@ -27,16 +31,16 @@ function CyclingPain({ pains, suffix }) {
           <motion.span
             key={i}
             className="cycle-word"
-            initial={{ opacity: 0, filter: 'blur(8px)' }}
+            initial={i === 0 && first.current ? false : { opacity: 0, filter: 'blur(8px)' }}
             animate={{ opacity: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, filter: 'blur(8px)' }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.span
               className="strike"
               initial={{ backgroundSize: '0% 0.08em' }}
               animate={{ backgroundSize: '100% 0.08em' }}
-              transition={{ delay: 1.2, duration: 0.6, ease: 'easeInOut' }}
+              transition={{ delay: 2, duration: 0.6, ease: 'easeInOut' }}
             >
               {pains[i]}
             </motion.span>
@@ -44,7 +48,7 @@ function CyclingPain({ pains, suffix }) {
         </AnimatePresence>
         {suffix && <span className="cycle-suffix">{suffix}</span>}
       </span>
-      <span className="cycle-dots" onMouseLeave={() => setPaused(false)}>
+      <span className="cycle-dots" onMouseLeave={() => setPaused(false)} role="group" aria-label={label}>
         {pains.map((p, n) => (
           <button
             key={p}
@@ -99,7 +103,7 @@ export default function Hero({ t, lang }) {
           {t.kicker}
         </motion.p>
         <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-          {t.prefix} <CyclingPain pains={t.pains} suffix={t.suffix} />
+          {t.prefix} <CyclingPain pains={t.pains} suffix={t.suffix} label={t.kicker} />
           <span className="accent">{t.resolve}</span>
         </motion.h1>
         <motion.p className="lead" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.7 }}>
