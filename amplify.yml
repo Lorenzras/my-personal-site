@@ -3,19 +3,19 @@ frontend:
   phases:
     preBuild:
       commands:
-        # Next.js 16 needs Node 20.9+; older Amplify build images default lower.
+        # Astro 7 needs a recent Node; older Amplify build images default lower.
         - nvm install 22
         - nvm use 22
         - node -v
-        - npm --prefix next ci
+        - npm --prefix astro ci
     build:
       commands:
         - nvm use 22
-        - npm --prefix next run build
+        - npm --prefix astro run build
   artifacts:
-    baseDirectory: next/out
+    baseDirectory: astro/dist
     files:
       - '**/*'
   cache:
     paths:
-      - next/node_modules/**/*
+      - astro/node_modules/**/*
