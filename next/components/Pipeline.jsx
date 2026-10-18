@@ -1,7 +1,8 @@
 'use client';
 
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { motion, useMotionValueEvent, useScroll, useTransform } from 'motion/react';
+import useReducedMotion from './useReducedMotion';
 import { SectionHead } from './Shell';
 
 const START = 0.05;

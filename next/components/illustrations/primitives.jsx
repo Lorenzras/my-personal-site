@@ -2,7 +2,8 @@
 
 // Shared building blocks for the site's illustrations.
 // Every colour comes from a CSS variable so light/dark themes just work.
-import { motion, useReducedMotion } from 'motion/react';
+import { motion } from 'motion/react';
+import useReducedMotion from '../useReducedMotion';
 
 export const C = {
   paper: 'var(--ill-paper)',
