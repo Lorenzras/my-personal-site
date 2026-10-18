@@ -6,7 +6,7 @@ export const metadata = {
   metadataBase: new URL('https://www.lenzlab.com'),
   alternates: { languages: { en: '/en/', ja: '/ja/', 'x-default': '/en/' } },
   robots: { index: false, follow: true },
-  icons: { icon: '/icon.svg' },
+  icons: { icon: [{ url: '/favicon.ico', sizes: '48x48' }, { url: '/icon.svg', type: 'image/svg+xml' }], apple: '/apple-touch-icon.png' },
 };
 
 export default function RootLayout({ children }) {
