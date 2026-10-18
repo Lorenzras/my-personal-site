@@ -126,11 +126,11 @@ export default function Hero({ t, lang }) {
         <motion.p className="kicker" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
           {t.kicker}
         </motion.p>
-        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
+        <motion.h1 initial={{ y: 30 }} animate={{ y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
           {t.prefix} <CyclingPain pains={t.pains} suffix={t.suffix} label={t.kicker} stateToday={t.stateToday} stateFixed={t.stateFixed} />
           <span className="accent">{t.resolve}</span>
         </motion.h1>
-        <motion.p className="lead" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.7 }}>
+        <motion.p className="lead" initial={{ y: 20 }} animate={{ y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
           {t.intro}
         </motion.p>
         <motion.div className="actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>

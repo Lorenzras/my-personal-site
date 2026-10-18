@@ -59,13 +59,12 @@ export function Services({ t }) {
     <section id="services" className="block">
       <SectionHead kicker={t.kicker} title={t.title} body={t.body} />
       <div className="offers">
-        <div className="offer-list" role="tablist">
+        <div className="offer-list">
           {t.items.map((it, i) => (
             <div key={it.id} className="offer-item">
               <motion.button
                 type="button"
-                role="tab"
-                aria-selected={i === active}
+                aria-expanded={i === active}
                 className={`offer-tab${i === active ? ' on' : ''}`}
                 aria-controls={`offer-${it.id}`}
                 onClick={() => setActive(i)}
@@ -96,7 +95,7 @@ export function Services({ t }) {
             </div>
           ))}
         </div>
-        <div className="offer-panel" role="tabpanel">
+        <div className="offer-panel">
           <AnimatePresence mode="wait">
             <motion.div key={s.id} id={`offer-${s.id}`} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.25 }}>
               <OfferDetail s={s} />
@@ -157,10 +156,12 @@ export function Process({ t }) {
   return (
     <section className="block">
       <SectionHead kicker={t.kicker} title={t.title} />
+      <div className="process-wrap">
+      <motion.span className="process-line" style={{ scaleY: scrollYProgress }} aria-hidden="true" />
       <ol ref={ref} className="process">
-        <motion.span className="process-line" style={{ scaleY: scrollYProgress }} />
         {t.steps.map((s, i) => <Step key={s.title} step={s} i={i} n={t.steps.length} progress={scrollYProgress} />)}
       </ol>
+      </div>
     </section>
   );
 }
