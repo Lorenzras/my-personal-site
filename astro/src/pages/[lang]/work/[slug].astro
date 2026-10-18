@@ -1,0 +1,50 @@
+---
+// One page per case study. The full demo (video or motion) gets added here
+// later; until then it shows the summary and, for masking, the live mock.
+import LangLayout from '../../../layouts/LangLayout.astro';
+import Reveal from '../../../components/Reveal.astro';
+import MaskPreview from '@/components/islands/MaskPreview';
+import WorkCover from '@/components/islands/WorkCover';
+import { dictionaries, getContent, languages, site } from '@/content';
+
+export const getStaticPaths = () =>
+  languages.flatMap((lang) => dictionaries[lang].work.items.map((w) => ({ params: { lang, slug: w.slug } })));
+
+const { lang, slug } = Astro.params;
+const t = getContent(lang);
+const item = t.work.items.find((w) => w.slug === slug);
+const labels = t.work.labels;
+const title = `${item.title} · ${site.brand}`;
+const description = `${item.problem} ${item.built}`;
+const steps = [['problem', item.problem], ['built', item.built], ['outcome', item.outcome]];
+---
+<LangLayout lang={lang} path={`/work/${slug}/`} title={title} description={description} ogType="article">
+  <main class="block page">
+    <Reveal>
+      <p class="kicker">{t.work.kicker}</p>
+      <h1 class="page-title">{item.title}</h1>
+      <ul class="tags">{item.tags.map((tag) => <li>{tag}</li>)}</ul>
+    </Reveal>
+    <div class="case">
+      {steps.map(([k, v], i) => (
+        <Reveal delay={0.1 * i} class="case-step">
+          <p class="tag">{labels[k]}</p>
+          <p>{v}</p>
+        </Reveal>
+      ))}
+    </div>
+    <Reveal class="page-demo">
+      {slug.includes('mask')
+        ? <MaskPreview t={t.masking} interactive client:visible />
+        : <div class="page-cover"><WorkCover slug={slug} client:visible /></div>}
+    </Reveal>
+    <Reveal class="coming">
+      <span class="badge">{labels.comingSoon}</span>
+      <p class="muted">{labels.demoNote}</p>
+      <div class="actions">
+        <a class="btn" href={`mailto:${site.email}?subject=${encodeURIComponent(item.title)}`}>{t.contact.cta}</a>
+        <a class="btn ghost" href={`/${lang}/#work`}>{labels.back}</a>
+      </div>
+    </Reveal>
+  </main>
+</LangLayout>

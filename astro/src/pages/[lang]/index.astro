@@ -1,0 +1,37 @@
+---
+import LangLayout from '../../layouts/LangLayout.astro';
+import Difference from '../../components/Difference.astro';
+import Contact from '../../components/Contact.astro';
+import Hero from '@/components/islands/Hero';
+import Pains from '@/components/islands/Pains';
+import Services from '@/components/islands/Services';
+import Integrations from '@/components/islands/Integrations';
+import MaskingSection from '@/components/islands/MaskingSection';
+import Pipeline from '@/components/islands/Pipeline';
+import Security from '@/components/islands/Security';
+import Process from '@/components/islands/Process';
+import Work from '@/components/islands/Work';
+import { getContent, languages } from '@/content';
+
+export const getStaticPaths = () => languages.map((lang) => ({ params: { lang } }));
+
+const { lang } = Astro.params;
+const t = getContent(lang);
+---
+<LangLayout lang={lang}>
+  <main>
+    <Hero t={t.hero} lang={lang} client:load />
+    {/* Pains and Pipeline change layout height under reduced motion, so they
+        hydrate early (idle) rather than when scrolled into view. */}
+    <Pains t={t.pains} lang={lang} client:idle />
+    <Difference t={t.difference} />
+    <Services t={t.services} client:visible />
+    <Integrations t={t.integrations} client:visible />
+    <MaskingSection t={t.masking} lang={lang} client:visible />
+    <Pipeline t={t.pipeline} client:idle />
+    <Security t={t.security} client:visible />
+    <Process t={t.process} client:visible />
+    <Work t={t.work} lang={lang} client:visible />
+    <Contact t={t.contact} />
+  </main>
+</LangLayout>

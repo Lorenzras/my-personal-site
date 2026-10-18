@@ -1,0 +1,60 @@
+---
+// <head> tags in the order Next.js' Metadata API emits them.
+import '../styles/globals.css';
+import { site } from '@/content';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  alternates: Record<string, string>;
+  robots?: string;
+  themeColor?: boolean;
+  og?: { type: string; title: string; description: string; url: string; siteName: string; locale?: string; imageAlt?: string };
+  twitter?: { title: string; description: string };
+}
+const { title, description, canonical, alternates, robots, themeColor, og, twitter } = Astro.props;
+const abs = (p: string) => new URL(p, site.url).href;
+// Applies a theme the visitor picked earlier before first paint (no flash).
+const themeScript = "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}";
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+{themeColor && (
+  <>
+    <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0d12" media="(prefers-color-scheme: dark)" />
+  </>
+)}
+<title>{title}</title>
+<meta name="description" content={description} />
+{robots && <meta name="robots" content={robots} />}
+{canonical && <link rel="canonical" href={abs(canonical)} />}
+{Object.entries(alternates).map(([l, p]) => <link rel="alternate" hreflang={l} href={abs(p)} />)}
+{og && (
+  <>
+    <meta property="og:title" content={og.title} />
+    <meta property="og:description" content={og.description} />
+    <meta property="og:url" content={abs(og.url)} />
+    <meta property="og:site_name" content={og.siteName} />
+    {og.locale && <meta property="og:locale" content={og.locale} />}
+    <meta property="og:image" content={abs('/og.png')} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {og.imageAlt && <meta property="og:image:alt" content={og.imageAlt} />}
+    <meta property="og:type" content={og.type} />
+  </>
+)}
+{twitter && (
+  <>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={twitter.title} />
+    <meta name="twitter:description" content={twitter.description} />
+    <meta name="twitter:image" content={abs('/og.png')} />
+  </>
+)}
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<script is:inline set:html={themeScript} />
+<slot />

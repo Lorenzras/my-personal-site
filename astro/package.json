@@ -1,0 +1,20 @@
+{
+  "name": "lenzlab-astro",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lorenz Ras - LenzLab homepage (Astro)",
+  "author": "Lorenz Ras",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/react": "^7.1.0",
+    "astro": "^7.4.0",
+    "motion": "^14.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

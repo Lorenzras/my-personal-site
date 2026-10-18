@@ -1,0 +1,51 @@
+---
+// Fades and lifts its content in when it enters the viewport, and back out
+// when it leaves, so scrolling up replays the scene in reverse. A zero-React
+// copy of the motion `Reveal` (initial -> whileInView, viewport.amount,
+// same duration/delay/easing); the server markup matches what motion renders.
+interface Props {
+  as?: string;
+  class?: string;
+  delay?: number;
+  y?: number;
+  amount?: number;
+  duration?: number;
+}
+const { as: Tag = 'div', class: className, delay = 0, y = 32, amount = 0.2, duration = 0.6 } = Astro.props;
+---
+<Tag
+  class={className}
+  data-reveal
+  data-y={y}
+  data-delay={delay}
+  data-amount={amount}
+  data-duration={duration}
+  style={`opacity:0;transform:translateY(${y}px)`}
+><slot /></Tag>
+
+<script>
+  // With reduced motion (MotionConfig reducedMotion="user" in the React
+  // version) only opacity animates; the lift is skipped.
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const show = (el: HTMLElement, on: boolean) => {
+    const { y, delay, duration } = el.dataset;
+    const t = `${duration}s ${EASE} ${delay}s`;
+    el.style.transition = reduce.matches ? `opacity ${t}` : `opacity ${t}, transform ${t}`;
+    el.style.opacity = on ? '1' : '0';
+    el.style.transform = on ? 'none' : `translateY(${y}px)`;
+  };
+  const observers = new Map<string, IntersectionObserver>();
+  document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
+    const amount = el.dataset.amount || '0.2';
+    let io = observers.get(amount);
+    if (!io) {
+      io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => show(e.target as HTMLElement, e.isIntersecting)),
+        { threshold: Number(amount) },
+      );
+      observers.set(amount, io);
+    }
+    io.observe(el);
+  });
+</script>

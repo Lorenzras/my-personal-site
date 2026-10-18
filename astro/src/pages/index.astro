@@ -1,0 +1,32 @@
+---
+// "/" picks a language from the browser and redirects to /en/, /ja/, ...
+import Head from '../layouts/Head.astro';
+import { defaultLang, languageNames, languages } from '@/content';
+
+const alternates = { en: '/en/', ja: '/ja/', 'x-default': '/en/' };
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <Head
+      title="LenzLab"
+      description="LenzLab: system integration, business apps and secure AI. 日本語 / English."
+      robots="noindex, follow"
+      alternates={alternates}
+    />
+  </head>
+  <body>
+    <main class="redirect">
+      <script is:inline define:vars={{ languages, defaultLang }}>
+        var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+        var match = Array.prototype.map.call(prefs, function (p) { return p && p.slice(0, 2).toLowerCase(); })
+          .find(function (p) { return languages.indexOf(p) !== -1; });
+        window.location.replace('/' + (match || defaultLang) + '/');
+      </script>
+      <p class="logo">LENZ<span>LAB</span></p>
+      <nav>
+        {languages.map((l) => <a href={`/${l}/`} hreflang={l}>{languageNames[l]}</a>)}
+      </nav>
+    </main>
+  </body>
+</html>

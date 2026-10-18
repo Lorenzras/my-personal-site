@@ -1,0 +1,17 @@
+---
+import Reveal from './Reveal.astro';
+import { site } from '@/content';
+
+const { t } = Astro.props;
+---
+<section id="contact" class="block contact">
+  <Reveal>
+    <p class="kicker">{t.kicker}</p>
+    <h2>{t.title}</h2>
+    <p class="lead">{t.body}</p>
+    <div class="actions center">
+      <a class="btn" href={`mailto:${site.email}`}>{t.cta}</a>
+    </div>
+    <p class="meta">{site.email} · {t.languages}</p>
+  </Reveal>
+</section>

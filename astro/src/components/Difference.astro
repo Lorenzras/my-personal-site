@@ -1,0 +1,19 @@
+---
+import SectionHead from './SectionHead.astro';
+import Reveal from './Reveal.astro';
+import DiffIcon from '@/components/islands/DiffIcon';
+
+const { t } = Astro.props;
+---
+<section class="block">
+  <SectionHead kicker={t.kicker} title={t.title} body={t.body} />
+  <div class="diff">
+    {t.points.map((p, i) => (
+      <Reveal as="article" class="diff-item" y={40} amount={0.25} duration={0.55} delay={i * 0.07}>
+        <span class="diff-icon"><DiffIcon index={i} client:visible /></span>
+        <h3>{p.title}</h3>
+        <p class="muted">{p.body}</p>
+      </Reveal>
+    ))}
+  </div>
+</section>
