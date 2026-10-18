@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { m } from '../motion';
 import { Bar, C, Packet, Pointer, Shield, Sparkle, Svg, Win, cubicD, loop, useReduced } from './primitives';
 
 // Connections: window anchor -> hub (or hub -> window), as cubic control points.
@@ -13,7 +13,7 @@ const LINKS = [
 
 function Bob({ reduced, dy = 4, dur = 6, delay = 0, children }) {
   return (
-    <motion.g {...loop(reduced, { y: [0, -dy, 0] }, { duration: dur, delay })}>{children}</motion.g>
+    <m.g {...loop(reduced, { y: [0, -dy, 0] }, { duration: dur, delay })}>{children}</m.g>
   );
 }
 
@@ -33,7 +33,7 @@ function TableApp({ reduced }) {
         return (
           <g key={row}>
             {hot && (
-              <motion.rect
+              <m.rect
                 x={x + 8}
                 y={ry - 5}
                 width={180}
@@ -81,12 +81,12 @@ function BoardApp({ reduced }) {
         </g>
       ))}
       {/* card travelling from "doing" to "done" */}
-      <motion.g {...loop(reduced, { x: [0, 0, 62, 62, 0], opacity: [1, 1, 1, 1, 1] }, { duration: 5, times: [0, 0.3, 0.55, 0.92, 1] })}>
+      <m.g {...loop(reduced, { x: [0, 0, 62, 62, 0], opacity: [1, 1, 1, 1, 1] }, { duration: 5, times: [0, 0.3, 0.55, 0.92, 1] })}>
         <rect x={colX[1] + 4} y={y + 74} width={44} height={26} rx={5} fill={C.paper} stroke={C.ok} strokeWidth={1.5} />
         <rect x={colX[1] + 4} y={y + 74} width={3} height={26} rx={1.5} fill={C.ok} />
         <Bar x={colX[1] + 11} y={y + 81} w={28} h={4} o={0.5} />
         <path d={`M${colX[1] + 12} ${y + 91} l3 3 l6 -6`} stroke={C.ok} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" />
-      </motion.g>
+      </m.g>
     </Win>
   );
 }
@@ -103,7 +103,7 @@ function ChatApp({ reduced }) {
       <rect x={x + 30} y={y + 56} width={104} height={18} rx={9} fill={C.soft} />
       <Bar x={x + 38} y={y + 62.5} w={72} o={0.4} />
       {/* automated message pops in */}
-      <motion.g
+      <m.g
         style={{ originX: 1, originY: 0.5 }}
         {...loop(reduced, { scale: [0.6, 1, 1, 1, 0.6], opacity: [0, 1, 1, 1, 0] }, { duration: 4.4, times: [0, 0.12, 0.5, 0.88, 1], delay: 1 })}
       >
@@ -112,7 +112,7 @@ function ChatApp({ reduced }) {
         <Sparkle cx={x + 76} cy={y + 103} s={5} />
         <Bar x={x + 86} y={y + 96} w={64} h={4} fill={C.ok} o={0.8} />
         <Bar x={x + 86} y={y + 106} w={40} h={4} fill={C.ok} o={0.45} />
-      </motion.g>
+      </m.g>
     </Win>
   );
 }
@@ -136,10 +136,10 @@ function MailApp({ reduced }) {
         <Bar x={x + 38} y={y + 111} w={48} h={4} o={0.45} />
         <Bar x={x + 38} y={y + 119} w={28} h={4} o={0.25} />
       </g>
-      <motion.g {...loop(reduced, { opacity: [0, 1, 1, 0] }, { duration: 4, times: [0, 0.2, 0.8, 1], delay: 2 })}>
+      <m.g {...loop(reduced, { opacity: [0, 1, 1, 0] }, { duration: 4, times: [0, 0.2, 0.8, 1], delay: 2 })}>
         <circle cx={x + 172} cy={y + 117} r={11} fill={C.ok} />
         <path d={`M${x + 167} ${y + 117} l3.5 3.5 l6.5 -7`} stroke={C.paper} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-      </motion.g>
+      </m.g>
     </Win>
   );
 }
@@ -147,7 +147,7 @@ function MailApp({ reduced }) {
 function Hub({ reduced }) {
   return (
     <g>
-      <motion.circle
+      <m.circle
         cx={280}
         cy={220}
         r={58}
@@ -158,7 +158,7 @@ function Hub({ reduced }) {
         style={{ originX: 0.5, originY: 0.5 }}
         {...loop(reduced, { rotate: 360 }, { duration: 30, ease: 'linear' })}
       />
-      <motion.circle
+      <m.circle
         cx={280}
         cy={220}
         r={46}
@@ -170,7 +170,7 @@ function Hub({ reduced }) {
       <rect x={240} y={176} width={80} height={88} rx={16} fill={C.paper} stroke={C.ok} strokeWidth={1.5} />
       <Shield cx={280} cy={210} s={30} reduced={reduced} />
       {[0, 1, 2].map((i) => (
-        <motion.rect
+        <m.rect
           key={i}
           x={254 + i * 18}
           y={244}
@@ -209,11 +209,11 @@ export default function HeroVisual({ className }) {
       <Bob reduced={reduced} delay={2.2} dy={5}><MailApp reduced={reduced} /></Bob>
 
       {/* a cursor nudging the board */}
-      <motion.g
+      <m.g
         {...loop(reduced, { x: [0, -18, -18, 0], y: [0, -10, -10, 0] }, { duration: 5, times: [0, 0.3, 0.6, 1] })}
       >
         <g transform="translate(470 196)"><Pointer /></g>
-      </motion.g>
+      </m.g>
       <Sparkle cx={236} cy={60} s={6} fill={C.amber} />
       <Sparkle cx={320} cy={404} s={5} fill={C.pink} />
       <path d="M524 30 v10 m-5 -5 h10" stroke={C.blue} strokeWidth={1.5} strokeLinecap="round" opacity={0.7} />

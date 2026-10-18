@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
-import MaskPreview from '@/components/MaskPreview';
-import { Reveal } from '@/components/Shell';
-import { WorkCover } from '@/components/illustrations';
+import LazyIsland from '@/components/LazyIsland';
+import { Reveal } from '@/components/Reveal';
 import { dictionaries, getContent, languages, site } from '@/content';
 
 export const dynamicParams = false;
@@ -27,6 +26,7 @@ export async function generateMetadata({ params }) {
 
 // One page per case study. The full demo (video or motion) gets added here
 // later; until then it shows the summary and, for masking, the live mock.
+// The text is server HTML; the cover / mock hydrates when it scrolls into view.
 export default async function WorkPage({ params }) {
   const { lang, slug } = await params;
   const t = getContent(lang);
@@ -49,7 +49,9 @@ export default async function WorkPage({ params }) {
         ))}
       </div>
       <Reveal className="page-demo">
-        {slug.includes('mask') ? <MaskPreview t={t.masking} interactive /> : <div className="page-cover"><WorkCover slug={slug} /></div>}
+        {slug.includes('mask')
+          ? <LazyIsland name="maskPreview" props={{ t: t.masking, interactive: true }} />
+          : <div className="page-cover"><LazyIsland name="workCover" props={{ slug }} /></div>}
       </Reveal>
       <Reveal className="coming">
         <span className="badge">{labels.comingSoon}</span>

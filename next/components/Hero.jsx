@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
-import { site } from '@/content';
-import { HeroVisual } from './illustrations';
+import { AnimatePresence, m, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from './motion';
+import { site } from '@/content/site';
+import HeroVisual from './illustrations/HeroVisual';
 
 // Flowing lines in the background: data moving from left to right.
 const LINES = Array.from({ length: 7 }, (_, i) => {
@@ -50,7 +50,7 @@ function CyclingPain({ pains, suffix, label, stateToday, stateFixed }) {
     <>
       <span className={`cycle${fixed ? ' is-fixed' : ''}`}>
         <AnimatePresence mode="wait">
-          <motion.span
+          <m.span
             key={i}
             className="cycle-word"
             initial={i === 0 && first.current ? false : { opacity: 0, filter: 'blur(8px)' }}
@@ -59,7 +59,7 @@ function CyclingPain({ pains, suffix, label, stateToday, stateFixed }) {
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="hl">{pains[i]}</span>
-          </motion.span>
+          </m.span>
         </AnimatePresence>
         {suffix && <Suffix text={suffix} />}
       </span>
@@ -105,11 +105,11 @@ export default function Hero({ t, lang }) {
 
   return (
     <header className="hero" onPointerMove={onMove}>
-      <motion.div className="flow-wrap" style={{ y }}>
-        <motion.svg className="flow" viewBox="0 0 1400 600" preserveAspectRatio="none" style={{ x: sx, y: sy }} aria-hidden>
+      <m.div className="flow-wrap" style={{ y }}>
+        <m.svg className="flow" viewBox="0 0 1400 600" preserveAspectRatio="none" style={{ x: sx, y: sy }} aria-hidden>
           {LINES.map((d, i) => (
             <g key={i}>
-              <motion.path
+              <m.path
                 d={d}
                 className="flow-line"
                 initial={{ pathLength: 0, opacity: 0 }}
@@ -119,33 +119,33 @@ export default function Hero({ t, lang }) {
               <path d={d} className="flow-dot" style={{ animationDelay: `${-i * 0.9}s` }} pathLength="100" />
             </g>
           ))}
-        </motion.svg>
-      </motion.div>
+        </m.svg>
+      </m.div>
 
-      <motion.div className="hero-inner" style={{ opacity: fade }}>
-        <motion.p className="kicker" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+      <m.div className="hero-inner" style={{ opacity: fade }}>
+        <m.p className="kicker" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
           {t.kicker}
-        </motion.p>
-        <motion.h1 initial={{ y: 30 }} animate={{ y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
+        </m.p>
+        <m.h1 initial={{ y: 30 }} animate={{ y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
           {t.prefix} <CyclingPain pains={t.pains} suffix={t.suffix} label={t.kicker} stateToday={t.stateToday} stateFixed={t.stateFixed} />
           <span className="accent">{t.resolve}</span>
-        </motion.h1>
-        <motion.p className="lead" initial={{ y: 20 }} animate={{ y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
+        </m.h1>
+        <m.p className="lead" initial={{ y: 20 }} animate={{ y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
           {t.intro}
-        </motion.p>
-        <motion.div className="actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
+        </m.p>
+        <m.div className="actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
           <a className="btn" href={`mailto:${site.email}`}>{t.ctaPrimary}</a>
           <a className="btn ghost" href={`/${lang}/#work`}>{t.ctaSecondary}</a>
-        </motion.div>
-      </motion.div>
-      <motion.div className="hero-visual" style={{ opacity: fade }}>
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
+        </m.div>
+      </m.div>
+      <m.div className="hero-visual" style={{ opacity: fade }}>
+        <m.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}>
           <HeroVisual />
-        </motion.div>
-      </motion.div>
-      <motion.div className="scroll-cue" style={{ opacity: fade }} aria-hidden>
+        </m.div>
+      </m.div>
+      <m.div className="scroll-cue" style={{ opacity: fade }} aria-hidden>
         <span />
-      </motion.div>
+      </m.div>
     </header>
   );
 }
