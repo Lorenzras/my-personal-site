@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'motion/react';
-import { SectionHead } from './Shell';
-import { PainArt } from './illustrations';
+import { AnimatePresence, m, useMotionValueEvent, useScroll } from './motion';
+import useReducedMotion from './useReducedMotion';
+import { SectionHead } from './MotionReveal';
+import PainArt from './illustrations/PainArt';
 
 const Check = () => (
   <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -135,13 +136,13 @@ function PinnedPains({ t, lang }) {
               <button key={p.id} type="button" role="tab" aria-selected={i === active} className={i === active ? 'on' : ''} onClick={() => jump(i)}>
                 <span className="pain-tab-num">{String(i + 1).padStart(2, '0')}</span>
                 {p.tag}
-                {i === active && <motion.span layoutId="pain-tab-bar" className="pain-tab-bar" />}
+                {i === active && <m.span layoutId="pain-tab-bar" className="pain-tab-bar" />}
               </button>
             ))}
           </div>
           <div className="pain-slot">
             <AnimatePresence mode="popLayout" initial={false}>
-              <motion.article
+              <m.article
                 key={item.id}
                 className="pain"
                 data-state={fixed ? 'fixed' : 'today'}
@@ -151,7 +152,7 @@ function PinnedPains({ t, lang }) {
                 transition={{ duration: 0.3 }}
               >
                 <Card item={item} t={t} lang={lang} fixed={fixed} onState={(f) => jump(active, f ? AT_FIXED : AT_TODAY)} />
-              </motion.article>
+              </m.article>
             </AnimatePresence>
             {/* The other pains stay in the page (hidden) so their text is indexed. */}
             {t.items.filter((p) => p.id !== item.id).map((p) => (

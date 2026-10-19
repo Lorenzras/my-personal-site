@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { m } from '../motion';
 import { Bar, C, Pointer, Shield, Sparkle, Svg, Win, loop, useReduced } from './primitives';
 
 // Every illustration has two states: `fixed` false shows today's manual chore,
@@ -79,7 +79,7 @@ function Retype({ reduced, fixed }) {
             <Bar x={42} y={64.5} w={34} h={4} o={0.55} />
             {/* today: the field being retyped (the fourth copy differs) */}
             <g className="pa-today">
-              <motion.rect
+              <m.rect
                 x={42}
                 y={49.5}
                 width={odd ? 30 : 46}
@@ -90,10 +90,10 @@ function Retype({ reduced, fixed }) {
                 {...loop(still, { width: [0, 0, odd ? 30 : 46, odd ? 30 : 46] }, { duration: D, times: [0, i * 0.2, i * 0.2 + 0.16, 1], ease: 'linear' })}
               />
               {odd && (
-                <motion.g {...loop(still, { opacity: [0, 0, 1, 1] }, { duration: D, times: [0, 0.75, 0.8, 1] })}>
+                <m.g {...loop(still, { opacity: [0, 0, 1, 1] }, { duration: D, times: [0, 0.75, 0.8, 1] })}>
                   <circle cx={112} cy={52} r={6} fill={C.bad} />
                   <path d="M112 49 v3.2 M112 55 v0.2" stroke={C.paper} strokeWidth={1.8} strokeLinecap="round" />
-                </motion.g>
+                </m.g>
               )}
             </g>
             {/* fixed: the same value everywhere */}
@@ -103,7 +103,7 @@ function Retype({ reduced, fixed }) {
       })}
       {/* today: cursor hopping between the four copies */}
       <g className="pa-today">
-        <motion.g
+        <m.g
           {...(still
             ? {}
             : {
@@ -114,7 +114,7 @@ function Retype({ reduced, fixed }) {
           <g transform={reduced ? 'translate(254 170)' : 'translate(110 72)'}>
             <Pointer />
           </g>
-        </motion.g>
+        </m.g>
       </g>
       <g className="pa-fixed">
         {[8, 80, 152].map((y) => <OkBadge key={y} cx={303} cy={y + 3} />)}
@@ -134,7 +134,7 @@ function Status({ reduced, fixed }) {
       <rect x={x} y={y} width={4} height={160} rx={2} fill={C.amber} />
       <Bar x={x + 16} y={y + 18} w={70} h={6} o={0.6} />
       {/* status pill cycling */}
-      <motion.rect
+      <m.rect
         x={x + 98}
         y={y + 14}
         width={46}
@@ -158,10 +158,10 @@ function Status({ reduced, fixed }) {
 
       {/* today: ignored bell */}
       <g className="pa-today" transform="translate(236 46)">
-        <motion.g style={{ originX: 0.5, originY: 0 }} {...loop(still, { rotate: [0, -14, 12, -8, 0, 0] }, { duration: 2.4, times: [0, 0.1, 0.2, 0.3, 0.4, 1] })}>
+        <m.g style={{ originX: 0.5, originY: 0 }} {...loop(still, { rotate: [0, -14, 12, -8, 0, 0] }, { duration: 2.4, times: [0, 0.1, 0.2, 0.3, 0.4, 1] })}>
           <path d="M-12 8 C-12 -6 -8 -12 0 -12 C8 -12 12 -6 12 8 L15 12 H-15 Z" fill={C.paper} stroke={C.ink} strokeWidth={1.5} strokeLinejoin="round" />
           <path d="M-4 15 a4 4 0 0 0 8 0" stroke={C.ink} strokeWidth={1.5} />
-        </motion.g>
+        </m.g>
         <circle cx={11} cy={-10} r={7} fill={C.bad} />
         <Bar x={8} y={-11} w={6} h={2.4} fill={C.paper} />
         <path d="M-18 -16 L20 22" stroke={C.ink} strokeWidth={1.5} strokeLinecap="round" opacity={0.5} />
@@ -191,7 +191,7 @@ function Status({ reduced, fixed }) {
           return <rect key={k} x={Math.round(cx * 100) / 100 - 6} y={cy - 6} width={12} height={12} rx={3} fill={past ? C.soft : 'none'} stroke={past ? 'none' : C.line} />;
         })}
         <g className="pa-today">
-          <motion.circle
+          <m.circle
             cx={60.66}
             cy={58}
             r={10}
@@ -237,7 +237,7 @@ function Masking({ reduced, fixed }) {
             {/* today: masks drawn by hand, one field missed */}
             <g className="pa-today">
               {MASKED[r] && (
-                <motion.rect
+                <m.rect
                   x={x + 50}
                   y={ry - 3}
                   width={MASK_W[r]}
@@ -248,7 +248,7 @@ function Masking({ reduced, fixed }) {
                 />
               )}
               {r === MISSED && (
-                <motion.rect
+                <m.rect
                   x={x + 48}
                   y={ry - 5}
                   width={74}
@@ -271,14 +271,14 @@ function Masking({ reduced, fixed }) {
       })}
       <g className="pa-today">
         {/* sweeping scan line */}
-        <motion.g {...loop(still, { y: [0, 0, 132, 132] }, { duration: D, times: [0, 0.06, 0.66, 1], ease: 'linear' })} opacity={reduced ? 0 : 1}>
+        <m.g {...loop(still, { y: [0, 0, 132, 132] }, { duration: D, times: [0, 0.06, 0.66, 1], ease: 'linear' })} opacity={reduced ? 0 : 1}>
           <rect x={x + 6} y={y + 46} width={152} height={2} rx={1} fill={C.ok} opacity={0.7} />
-        </motion.g>
+        </m.g>
         {/* warning tag on the missed field */}
-        <motion.g {...loop(still, { opacity: [0, 0, 1, 1, 0] }, { duration: D, times: [0, 0.62, 0.68, 0.92, 1] })}>
+        <m.g {...loop(still, { opacity: [0, 0, 1, 1, 0] }, { duration: D, times: [0, 0.62, 0.68, 0.92, 1] })}>
           <circle cx={x + 164} cy={y + 103} r={11} fill={C.bad} />
           <path d={`M${x + 164} ${y + 97} v6.5 M${x + 164} ${y + 108} v0.3`} stroke={C.paper} strokeWidth={2.2} strokeLinecap="round" />
-        </motion.g>
+        </m.g>
       </g>
       <g className="pa-fixed">
         <OkBadge cx={x + 164} cy={y + 103} r={11} />
@@ -318,7 +318,7 @@ function AiRisk({ reduced, fixed }) {
         <path d="M240 90 h28 M254 76 c-8 8 -8 20 0 28 c8 -8 8 -20 0 -28" stroke={C.ink} strokeWidth={1.2} opacity={0.6} />
         <path d="M134 150 C 180 150 200 140 236 124" stroke={C.bad} strokeWidth={1.5} strokeDasharray="3 5" strokeLinecap="round" opacity={0.6} />
         {/* the file + cursor being dragged */}
-        <motion.g
+        <m.g
           {...loop(still, { x: [0, 0, 98, 98, 0], y: [0, 0, -36, -36, 0], opacity: [0, 1, 1, 0, 0] }, { duration: D, times: [0, 0.1, 0.6, 0.85, 1] })}
         >
           <g transform={reduced ? 'translate(176 106)' : 'translate(116 128)'}>
@@ -328,12 +328,12 @@ function AiRisk({ reduced, fixed }) {
             <rect x={4} y={25} width={20} height={5} rx={1.5} fill={C.bad} />
             <g transform="translate(22 24)"><Pointer /></g>
           </g>
-        </motion.g>
+        </m.g>
         {/* warning */}
-        <motion.g style={{ originX: 0.5, originY: 0.5 }} {...loop(still, { scale: [1, 1.12, 1] }, { duration: 1.4 })}>
+        <m.g style={{ originX: 0.5, originY: 0.5 }} {...loop(still, { scale: [1, 1.12, 1] }, { duration: 1.4 })}>
           <path d="M262 136 L284 174 H240 Z" fill={C.bad} stroke={C.bad} strokeWidth={3} strokeLinejoin="round" />
           <path d="M262 149 v12 M262 167 v0.4" stroke={C.paper} strokeWidth={2.6} strokeLinecap="round" />
-        </motion.g>
+        </m.g>
       </g>
 
       {/* fixed: a private AI model inside the same account */}
@@ -372,7 +372,7 @@ function Tower({ reduced, fixed }) {
       <path className="pa-today" d="M64 192 H256" stroke={C.line} strokeWidth={1.5} strokeLinecap="round" />
       <g className="pa-move" style={mv(shift, 0)}>
         <ellipse cx={160} cy={194} rx={80} ry={5} fill={C.soft} />
-        <motion.g style={{ originX: 0.5, originY: 1 }} {...wobble}>
+        <m.g style={{ originX: 0.5, originY: 1 }} {...wobble}>
           {BLOCKS.map((b, i) => {
             const bx = 160 - b.w / 2 + b.dx;
             const by = base - (i + 1) * (h + 3);
@@ -388,7 +388,7 @@ function Tower({ reduced, fixed }) {
                 )}
                 {b.crack && (
                   <g className="pa-today">
-                    <motion.path
+                    <m.path
                       d={`M${bx + b.w * 0.62} ${by} l-5 9 l7 5 l-6 8 l3 6`}
                       stroke={C.bad}
                       strokeWidth={2}
@@ -401,11 +401,11 @@ function Tower({ reduced, fixed }) {
               </g>
             );
           })}
-        </motion.g>
+        </m.g>
       </g>
       {/* today: chip falling off */}
       <g className="pa-today">
-        <motion.rect
+        <m.rect
           x={226}
           y={104}
           width={7}

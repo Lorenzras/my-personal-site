@@ -7,7 +7,7 @@ No 3D; the 3D "Automation Factory" lives on its own branch.
 
 Each language has its own URL: `/en/`, `/ja/`. Visiting `/` redirects to the browser's language
 (falls back to English). All copy lives in `content/<lang>.js`; every file has the same shape.
-To add a language, copy `content/en.js`, translate the strings, and register it in `content/index.js`.
+To add a language, copy `content/en.js`, translate the strings, and register it in `content/index.js` and `content/site.js`.
 
 ## Page
 

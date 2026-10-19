@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { defaultLang, languages } from '@/content';
+import { defaultLang, languages } from '@/content/site';
 
 export default function LanguageRedirect() {
   useEffect(() => {

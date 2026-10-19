@@ -2,7 +2,8 @@
 
 // Shared building blocks for the site's illustrations.
 // Every colour comes from a CSS variable so light/dark themes just work.
-import { motion, useReducedMotion } from 'motion/react';
+import { m } from '../motion';
+import useReducedMotion from '../useReducedMotion';
 
 export const C = {
   paper: 'var(--ill-paper)',
@@ -55,7 +56,7 @@ export function Packet({ pts, reduced, dur = 2.4, delay = 0, r = 3.5, fill = C.o
   if (reduced) return <circle cx={xs[mid]} cy={ys[mid]} r={r} fill={fill} />;
   const op = xs.map((_, i) => (i === 0 || i === xs.length - 1 ? 0 : 1));
   return (
-    <motion.circle
+    <m.circle
       cx={xs[0]}
       cy={ys[0]}
       r={r}
@@ -71,7 +72,7 @@ export function Packet({ pts, reduced, dur = 2.4, delay = 0, r = 3.5, fill = C.o
 export function Draw({ d, reduced, stroke = C.ok, w = 1.5, dur = 2.4, delay = 0, hold = 1.2, ...rest }) {
   if (reduced) return <path d={d} fill="none" stroke={stroke} strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" {...rest} />;
   return (
-    <motion.path
+    <m.path
       d={d}
       fill="none"
       stroke={stroke}

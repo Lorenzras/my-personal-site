@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { Reveal, SectionHead } from './Shell';
+import { m, useScroll, useTransform } from './motion';
+import { Reveal, SectionHead } from './MotionReveal';
 
 function MaskedValue({ value, progress, from, revealed, onToggle, labels, pulse }) {
   const scaleX = useTransform(progress, [from, from + 0.12], [0, 1]);
@@ -10,10 +10,10 @@ function MaskedValue({ value, progress, from, revealed, onToggle, labels, pulse 
   return (
     <button type="button" className={`doc-value masked${pulse ? ' pulse' : ''}`} onClick={onToggle} aria-pressed={revealed} title={revealed ? labels.hide : labels.reveal}>
       {value}
-      <motion.span className="detect" style={{ opacity: ring }} />
-      <motion.span className="mask" style={{ scaleX }} animate={{ opacity: revealed ? 0 : 1 }}>
+      <m.span className="detect" style={{ opacity: ring }} />
+      <m.span className="mask" style={{ scaleX }} animate={{ opacity: revealed ? 0 : 1 }}>
         <em>{labels.masked}</em>
-      </motion.span>
+      </m.span>
     </button>
   );
 }
@@ -35,11 +35,11 @@ export default function MaskPreview({ t }) {
     <div ref={ref} className="doc">
       <div className="doc-head">
         <span>{doc.title}</span>
-        <motion.span className="doc-status" style={{ opacity: statusOpacity }}>
+        <m.span className="doc-status" style={{ opacity: statusOpacity }}>
           ✓ {doc.status.replace('{n}', count)}
-        </motion.span>
+        </m.span>
       </div>
-      <motion.div className="scan" style={{ top: scanTop, opacity: scanOpacity }} />
+      <m.div className="scan" style={{ top: scanTop, opacity: scanOpacity }} />
       {doc.rows.map(([label, value, sensitive]) => {
         const from = sensitive ? 0.15 + (0.6 * k++) / count : 0;
         return (

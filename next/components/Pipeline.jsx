@@ -1,8 +1,9 @@
 'use client';
 
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react';
-import { SectionHead } from './Shell';
+import { m, useMotionValueEvent, useScroll, useTransform } from './motion';
+import useReducedMotion from './useReducedMotion';
+import { SectionHead } from './MotionReveal';
 
 const START = 0.05;
 const END = 0.85;
@@ -86,7 +87,7 @@ export default function Pipeline({ t }) {
             ) : g.steps.map(node)}
           </Fragment>
         ))}
-        {!reduce && <motion.span className="record-chip" style={{ x, y, opacity: chipOpacity }} aria-hidden>{t.chip}</motion.span>}
+        {!reduce && <m.span className="record-chip" style={{ x, y, opacity: chipOpacity }} aria-hidden>{t.chip}</m.span>}
       </div>
       <p className="pipe-caption" aria-live="polite">
         {reduce ? t.body : step >= 0 ? t.steps[step].detail : t.hint}

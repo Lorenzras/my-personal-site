@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react';
-import { SectionHead } from './Shell';
+import { AnimatePresence, m, useInView, useReducedMotion, useScroll, useTransform } from './motion';
+import { SectionHead } from './MotionReveal';
 
 const R = 40; // node orbit radius, in % of the hub box
 
@@ -18,7 +18,7 @@ function Spoke({ i, n, progress, on }) {
   const pathLength = useTransform(progress, [start, start + 0.35], [0, 1]);
   return (
     <g className={on ? 'spoke on' : 'spoke'}>
-      <motion.line x1="50" y1="50" x2={x} y2={y} style={{ pathLength }} />
+      <m.line x1="50" y1="50" x2={x} y2={y} style={{ pathLength }} />
       {on && (
         <>
           <circle r="0.9" className="spoke-packet">
@@ -68,7 +68,7 @@ export default function Integrations({ t }) {
             const [x, y] = pos(i, n);
             return (
               <div key={nd.id} className="hub-slot" style={{ left: `${x}%`, top: `${y}%` }}>
-                <motion.button
+                <m.button
                   type="button"
                   className={`hub-node${i === active ? ' on' : ''}`}
                   aria-pressed={i === active}
@@ -81,18 +81,18 @@ export default function Integrations({ t }) {
                   transition={{ delay: 0.04 * i, duration: 0.4 }}
                 >
                   {nd.name}
-                </motion.button>
+                </m.button>
               </div>
             );
           })}
         </div>
         <div className="hub-detail" aria-live="polite">
           <AnimatePresence mode="wait">
-            <motion.div key={node.id} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.25 }}>
+            <m.div key={node.id} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.25 }}>
               <p className="tag">{node.category}</p>
               <h3>{node.name}</h3>
               <p className="muted">{node.example}</p>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
           <p className="hint">{t.hint}</p>
         </div>
