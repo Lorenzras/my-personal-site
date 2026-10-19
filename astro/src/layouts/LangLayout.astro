@@ -1,0 +1,65 @@
+---
+// Equivalent of app/[lang]/layout.jsx: per-language <html>, metadata,
+// JSON-LD, nav chrome and footer.
+import Head from './Head.astro';
+import Shell from '../components/Shell.astro';
+import { getContent, languages, site } from '@/content';
+
+interface Props {
+  lang: string;
+  path?: string; // path after /<lang>, e.g. '/' or '/work/x/'
+  title?: string;
+  description?: string;
+  ogType?: string;
+}
+const { lang, path = '/', ogType = 'website' } = Astro.props;
+const t = getContent(lang);
+const home = path === '/';
+const title = Astro.props.title ?? t.meta.title;
+const description = Astro.props.description ?? t.meta.description;
+const alternates = { ...Object.fromEntries(languages.map((l) => [l, `/${l}${path}`])), 'x-default': `/en${path}` };
+
+// Structured data: the business, brand first (no personal details).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.brand,
+  url: `${site.url}/${lang}/`,
+  email: site.email,
+  description: t.meta.description,
+  areaServed: 'JP',
+  availableLanguage: ['ja', 'en'],
+  knowsAbout: ['System integration', 'kintone', 'Backlog', 'AWS Bedrock', 'Workflow automation', 'Document masking'],
+  makesOffer: t.services.items.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.name, description: s.outcome } })),
+};
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <Head
+      title={title}
+      description={description}
+      canonical={`/${lang}${path}`}
+      alternates={alternates}
+      themeColor
+      og={{
+        type: ogType,
+        siteName: site.brand,
+        title,
+        description,
+        url: `/${lang}${path}`,
+        locale: home ? t.meta.locale : undefined,
+        imageAlt: home ? site.brand : undefined,
+      }}
+      twitter={{ title: t.meta.title, description: t.meta.description }}
+    >
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    </Head>
+  </head>
+  <body>
+    <Shell lang={lang} nav={t.nav} themeLabel={t.meta.themeToggle}>
+      <slot />
+      <footer class="footer">© {new Date().getFullYear()} {site.name} · {site.brand}</footer>
+    </Shell>
+  </body>
+</html>

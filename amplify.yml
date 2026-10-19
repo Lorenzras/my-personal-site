@@ -1,0 +1,21 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Astro 7 needs a recent Node; older Amplify build images default lower.
+        - nvm install 22
+        - nvm use 22
+        - node -v
+        - npm --prefix astro ci
+    build:
+      commands:
+        - nvm use 22
+        - npm --prefix astro run build
+  artifacts:
+    baseDirectory: astro/dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - astro/node_modules/**/*

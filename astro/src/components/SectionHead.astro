@@ -1,0 +1,11 @@
+---
+import Reveal from './Reveal.astro';
+
+interface Props { kicker: string; title: string; body?: string }
+const { kicker, title, body } = Astro.props;
+---
+<Reveal class="section-head">
+  <p class="kicker">{kicker}</p>
+  <h2>{title}</h2>
+  {body && <p class="lead">{body}</p>}
+</Reveal>

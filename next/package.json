@@ -1,0 +1,19 @@
+{
+  "name": "lenzlab",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Lorenz Ras - 3D Automation Factory homepage",
+  "author": "Lorenz Ras",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "npx serve out",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "motion": "^14.3.0",
+    "next": "^16.4.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}
